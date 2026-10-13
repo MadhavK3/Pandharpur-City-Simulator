@@ -101,8 +101,9 @@ export function buildPandharpurGraph(options = {}) {
  */
 export function getEuclideanDistance(nodeA, nodeB) {
   if (!nodeA || !nodeB) return 0;
-  const dx = (nodeA.x - nodeB.x) * 10; // scaled roughly to meters
-  const dy = (nodeA.y - nodeB.y) * 10;
-  const dz = (nodeA.z - nodeB.z) * 10;
-  return Math.sqrt(dx * dx + dy * dy + dz * dz);
+  const dx = (nodeA.x - nodeB.x);
+  const dy = (nodeA.y - nodeB.y);
+  const dz = (nodeA.z - nodeB.z);
+  // Admissible Euclidean lower-bound heuristic for A*
+  return Math.sqrt(dx * dx + dy * dy + dz * dz) * 1.2;
 }

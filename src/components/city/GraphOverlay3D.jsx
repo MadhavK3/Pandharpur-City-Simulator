@@ -166,35 +166,35 @@ export function GraphOverlay3D() {
         const isHovered = hoveredNode === node.id;
 
         let nodeColor = '#94a3b8';
-        let nodeSize = 0.55;
+        let nodeSize = 0.85;
 
         if (isStart) {
           nodeColor = '#10b981'; // Green
-          nodeSize = 0.95;
+          nodeSize = 1.4;
         } else if (isEnd) {
           nodeColor = '#f59e0b'; // Gold
-          nodeSize = 0.95;
+          nodeSize = 1.4;
         } else if (isMultiStop) {
           nodeColor = '#ec4899'; // Pink/Magenta
-          nodeSize = 0.8;
+          nodeSize = 1.2;
         } else if (isCurrentNode) {
           nodeColor = '#facc15'; // Yellow
-          nodeSize = 0.85;
+          nodeSize = 1.25;
         } else if (isPathNode) {
           nodeColor = '#22c55e'; // Green
-          nodeSize = 0.7;
+          nodeSize = 1.05;
         } else if (isFrontier) {
           nodeColor = '#06b6d4'; // Cyan
-          nodeSize = 0.65;
+          nodeSize = 0.95;
         } else if (isVisited) {
           nodeColor = '#6366f1'; // Indigo
-          nodeSize = 0.6;
+          nodeSize = 0.9;
         }
 
         return (
           <group
             key={`node_overlay_${node.id}`}
-            position={[node.x, node.y + 0.35, node.z]}
+            position={[node.x, node.y + 0.75, node.z]}
             onClick={(e) => {
               e.stopPropagation();
               if (e.shiftKey) {
