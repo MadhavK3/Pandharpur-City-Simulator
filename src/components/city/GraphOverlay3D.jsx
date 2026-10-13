@@ -56,30 +56,30 @@ export function GraphOverlay3D() {
         }
 
         let edgeColor = '#475569';
-        let edgeRadius = 0.12;
+        let edgeRadius = 0.22;
         let opacity = 0.45;
 
         if (isClosed) {
           edgeColor = '#ef4444'; // Barricaded
-          edgeRadius = 0.35;
+          edgeRadius = 0.55;
           opacity = 0.95;
         } else if (isCurrentEdge) {
           edgeColor = '#facc15';
-          edgeRadius = 0.35;
+          edgeRadius = 0.55;
           opacity = 1.0;
         } else if (isPathEdge) {
           edgeColor = '#10b981';
-          edgeRadius = 0.28;
+          edgeRadius = 0.45;
           opacity = 0.95;
         } else if (isMstEdge) {
           edgeColor = '#f59e0b';
-          edgeRadius = 0.25;
+          edgeRadius = 0.38;
           opacity = 0.9;
         }
 
-        // Midpoint and orientation
-        const p1 = new THREE.Vector3(u.x, u.y + 0.3, u.z);
-        const p2 = new THREE.Vector3(v.x, v.y + 0.3, v.z);
+        // Midpoint and orientation elevated cleanly above road
+        const p1 = new THREE.Vector3(u.x, u.y + 0.65, u.z);
+        const p2 = new THREE.Vector3(v.x, v.y + 0.65, v.z);
         const mid = p1.clone().add(p2).multiplyScalar(0.5);
         const dist = p1.distanceTo(p2);
 
