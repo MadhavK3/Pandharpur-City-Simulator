@@ -14,11 +14,13 @@ import {
   Trash2,
   Play,
   RotateCcw,
-  Sparkles
+  Sparkles,
+  X
 } from 'lucide-react';
 
 export function Sidebar() {
   const isSidebarOpen = useSimulationStore(state => state.isSidebarOpen);
+  const setSidebarOpen = useSimulationStore(state => state.setSidebarOpen);
   const selectedAlgorithm = useSimulationStore(state => state.selectedAlgorithm);
   const setAlgorithm = useSimulationStore(state => state.setAlgorithm);
 
@@ -44,18 +46,29 @@ export function Sidebar() {
   const nodeMap = new Map(PANDHARPUR_GRAPH_DATA.nodes.map(n => [n.id, n]));
   const algoConfig = ALGORITHM_REGISTRY[selectedAlgorithm];
 
-  if (!isSidebarOpen) return null;
+  if (!isSidebarOpen) {
+    return (
+      <button
+        className="quick-access-btn"
+        onClick={() => setSidebarOpen(true)}
+        title="Open Route Planner"
+      >
+        <Route size={15} color="#fbbf24" />
+        <span>Route Planner</span>
+      </button>
+    );
+  }
 
   return (
     <aside
-      className="glass-panel"
+      className="glass-panel slide-in-left"
       style={{
         position: 'absolute',
         top: 'calc(var(--topbar-height) + 12px)',
         left: '12px',
         width: 'var(--sidebar-width)',
         bottom: '12px',
-        zIndex: 15,
+        zIndex: 20,
         display: 'flex',
         flexDirection: 'column',
         padding: '16px',
@@ -68,13 +81,23 @@ export function Sidebar() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Route size={18} color="#f59e0b" />
-          <h2 style={{ fontSize: '1rem', fontWeight: '700', color: '#f8fafc', margin: 0 }}>
+          <h2 style={{ fontSize: '0.95rem', fontWeight: '700', color: '#f8fafc', margin: 0 }}>
             Pilgrim Route Planner
           </h2>
         </div>
-        <span className="badge badge-gold" style={{ fontSize: '0.68rem' }}>
-          {selectedAlgorithm}
-        </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <span className="badge badge-gold" style={{ fontSize: '0.65rem' }}>
+            {selectedAlgorithm}
+          </span>
+          <button
+            className="btn btn-icon"
+            onClick={() => setSidebarOpen(false)}
+            style={{ padding: '3px', color: '#94a3b8' }}
+            title="Close Route Planner"
+          >
+            <X size={15} />
+          </button>
+        </div>
       </div>
 
       {/* 1. Algorithm Selector Dropdown */}

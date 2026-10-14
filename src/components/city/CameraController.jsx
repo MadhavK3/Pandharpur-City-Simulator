@@ -11,7 +11,8 @@ export function CameraController() {
   const focusedCoordinates = useSimulationStore(state => state.focusedCoordinates);
 
   const targetLookAt = useRef(new THREE.Vector3(0, 0, 0));
-  const targetCamPos = useRef(new THREE.Vector3(0, 110, 150));
+  const targetCamPos = useRef(new THREE.Vector3(0, 95, 140));
+  const isTransitioning = useRef(false);
 
   useEffect(() => {
     if (cameraMode === 'landmark' && focusedCoordinates) {
@@ -21,29 +22,42 @@ export function CameraController() {
         focusedCoordinates[1] + 32,
         focusedCoordinates[2] + 48
       );
+      isTransitioning.current = true;
     } else if (cameraMode === 'aerial') {
       targetLookAt.current.set(0, 0, 0);
-      targetCamPos.current.set(0, 280, 5);
+      targetCamPos.current.set(0, 260, 5);
+      isTransitioning.current = true;
     } else if (cameraMode === 'orbit') {
       targetLookAt.current.set(0, 0, 0);
       targetCamPos.current.set(0, 95, 140);
+      isTransitioning.current = true;
     }
   }, [cameraMode, focusedCoordinates]);
 
   useFrame((_, delta) => {
-    if (controlsRef.current) {
-      if (cameraMode === 'flyover') {
-        // Continuous slow orbit around the Vitthal Mandir
-        controlsRef.current.autoRotate = true;
-        controlsRef.current.autoRotateSpeed = 0.6;
-      } else {
-        controlsRef.current.autoRotate = false;
-        // Smooth lerp to target lookAt and position
-        controlsRef.current.target.lerp(targetLookAt.current, delta * 2.5);
-        camera.position.lerp(targetCamPos.current, delta * 2.5);
+    if (!controlsRef.current) return;
+
+    if (cameraMode === 'flyover') {
+      controlsRef.current.autoRotate = true;
+      controlsRef.current.autoRotateSpeed = 0.6;
+    } else {
+      controlsRef.current.autoRotate = false;
+
+      // Only interpolate during active transition until settled
+      if (isTransitioning.current) {
+        controlsRef.current.target.lerp(targetLookAt.current, delta * 3.0);
+        camera.position.lerp(targetCamPos.current, delta * 3.0);
+
+        if (
+          camera.position.distanceTo(targetCamPos.current) < 1.0 &&
+          controlsRef.current.target.distanceTo(targetLookAt.current) < 0.5
+        ) {
+          isTransitioning.current = false;
+        }
       }
-      controlsRef.current.update();
     }
+
+    controlsRef.current.update();
   });
 
   return (
@@ -51,9 +65,14 @@ export function CameraController() {
       ref={controlsRef}
       enableDamping
       dampingFactor={0.06}
-      maxPolarAngle={Math.PI / 2 - 0.04} // Prevent going below ground
-      minDistance={15}
-      maxDistance={480}
+      maxPolarAngle={Math.PI / 2 - 0.02} // Prevent going beneath ground plane
+      minDistance={2}
+      maxDistance={700}
+      screenSpacePanning
+      onStart={() => {
+        // Immediate user override: stop any automated transition
+        isTransitioning.current = false;
+      }}
     />
   );
 }

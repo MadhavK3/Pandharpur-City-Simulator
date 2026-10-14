@@ -12,7 +12,8 @@ import {
   Code2,
   Trophy,
   ShieldAlert,
-  Info
+  Info,
+  Navigation
 } from 'lucide-react';
 
 export function TopNavigation() {
@@ -46,39 +47,38 @@ export function TopNavigation() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        zIndex: 20,
-        background: 'rgba(9, 13, 22, 0.88)',
+        zIndex: 25,
+        background: 'rgba(9, 13, 22, 0.92)',
         backdropFilter: 'blur(16px)',
         borderBottom: '1px solid rgba(245, 158, 11, 0.25)',
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.6)'
       }}
     >
-      {/* Brand Title */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      {/* Brand Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <div
           style={{
-            width: '34px',
-            height: '34px',
+            width: '32px',
+            height: '32px',
             borderRadius: '8px',
             background: 'linear-gradient(135deg, #f97316, #f59e0b)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 0 12px rgba(245, 158, 11, 0.6)',
-            fontSize: '18px'
+            boxShadow: '0 0 12px rgba(245, 158, 11, 0.6)'
           }}
         >
-          🚩
+          <Navigation size={18} color="#090d16" />
         </div>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="holy-title" style={{ fontSize: '1.05rem', fontWeight: '800', color: '#fbbf24' }}>
+            <span className="holy-title" style={{ fontSize: '1rem', fontWeight: '800', color: '#fbbf24' }}>
               PANDHARPUR DARSHAN 3D
             </span>
-            <span className="badge badge-gold">DAA Sim</span>
+            <span className="badge badge-gold" style={{ fontSize: '0.65rem' }}>DAA Sim</span>
           </div>
-          <p style={{ fontSize: '0.68rem', color: '#94a3b8', margin: 0, letterSpacing: '0.02em' }}>
-            श्री क्षेत्र पंढरपूर तीर्थक्षेत्र व अल्गोरिदम मॉडेलिंग
+          <p style={{ fontSize: '0.65rem', color: '#94a3b8', margin: 0, letterSpacing: '0.02em' }}>
+            Pandharpur Heritage and Algorithm Modeling
           </p>
         </div>
       </div>
@@ -100,7 +100,7 @@ export function TopNavigation() {
             className="btn btn-icon"
             style={{ background: timeOfDay === 'day' ? 'rgba(245, 158, 11, 0.25)' : 'transparent', color: timeOfDay === 'day' ? '#fbbf24' : '#94a3b8' }}
             onClick={() => setTimeOfDay('day')}
-            title="Day (प्रकाश)"
+            title="Day lighting"
           >
             <Sun size={15} />
           </button>
@@ -108,7 +108,7 @@ export function TopNavigation() {
             className="btn btn-icon"
             style={{ background: timeOfDay === 'evening' ? 'rgba(249, 115, 22, 0.25)' : 'transparent', color: timeOfDay === 'evening' ? '#fb923c' : '#94a3b8' }}
             onClick={() => setTimeOfDay('evening')}
-            title="Sunset (संध्याकाळ)"
+            title="Sunset lighting"
           >
             <Sunset size={15} />
           </button>
@@ -116,7 +116,7 @@ export function TopNavigation() {
             className="btn btn-icon"
             style={{ background: timeOfDay === 'aarti' ? 'rgba(245, 158, 11, 0.35)' : 'transparent', color: timeOfDay === 'aarti' ? '#f59e0b' : '#94a3b8' }}
             onClick={() => setTimeOfDay('aarti')}
-            title="Deep Aarti (आरती)"
+            title="Deep Aarti lighting"
           >
             <Flame size={15} />
           </button>
@@ -124,7 +124,7 @@ export function TopNavigation() {
             className="btn btn-icon"
             style={{ background: timeOfDay === 'night' ? 'rgba(59, 130, 246, 0.25)' : 'transparent', color: timeOfDay === 'night' ? '#60a5fa' : '#94a3b8' }}
             onClick={() => setTimeOfDay('night')}
-            title="Night (रात्र)"
+            title="Night lighting"
           >
             <Moon size={15} />
           </button>
@@ -200,25 +200,35 @@ export function TopNavigation() {
       {/* Right: Modals & Panels */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <button
-          className="btn btn-secondary"
+          className="btn"
+          style={{
+            background: isNetworkEditorOpen ? 'rgba(239, 68, 68, 0.25)' : 'rgba(255, 255, 255, 0.05)',
+            borderColor: isNetworkEditorOpen ? '#ef4444' : 'rgba(255, 255, 255, 0.1)',
+            color: isNetworkEditorOpen ? '#f87171' : '#94a3b8'
+          }}
           onClick={() => setNetworkEditorOpen(!isNetworkEditorOpen)}
-          title="Crowd & Barricades Manager"
+          title="Crowd and Barricades Manager"
         >
           <ShieldAlert size={14} />
           <span>Barricades</span>
         </button>
 
         <button
-          className="btn btn-secondary"
+          className="btn"
+          style={{
+            background: isMissionPanelOpen ? 'rgba(245, 158, 11, 0.25)' : 'rgba(255, 255, 255, 0.05)',
+            borderColor: isMissionPanelOpen ? '#f59e0b' : 'rgba(255, 255, 255, 0.1)',
+            color: isMissionPanelOpen ? '#fbbf24' : '#94a3b8'
+          }}
           onClick={() => setMissionPanelOpen(!isMissionPanelOpen)}
-          title="Holy Pilgrim Missions"
+          title="Pilgrim Simulation Missions"
         >
           <Trophy size={14} />
           <span>Missions</span>
         </button>
 
         <button
-          className="btn btn-primary"
+          className={isAlgorithmLabOpen ? 'btn btn-primary' : 'btn btn-secondary'}
           onClick={() => setAlgorithmLabOpen(!isAlgorithmLabOpen)}
           title="Step-by-Step DAA Algorithm Lab"
         >
@@ -229,7 +239,7 @@ export function TopNavigation() {
         <button
           className="btn btn-icon"
           onClick={() => setWelcomeModalOpen(true)}
-          title="Project Guide & Info"
+          title="Project Guide and Info"
         >
           <Info size={16} />
         </button>

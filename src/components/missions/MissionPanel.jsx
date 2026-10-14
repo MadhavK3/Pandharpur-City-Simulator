@@ -14,13 +14,14 @@ export function MissionPanel() {
 
   return (
     <div
+      className="slide-in-right"
       style={{
         position: 'absolute',
-        top: 'calc(var(--topbar-height) + 16px)',
-        right: '16px',
-        bottom: '90px',
-        width: '440px',
-        zIndex: 25,
+        top: 'calc(var(--topbar-height) + 12px)',
+        right: '12px',
+        bottom: '80px',
+        width: 'min(420px, calc(100vw - 24px))',
+        zIndex: 20,
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '12px',
