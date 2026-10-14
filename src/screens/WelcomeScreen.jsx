@@ -48,12 +48,12 @@ export function WelcomeScreen() {
       >
         {/* Divine Banner */}
         <div style={{ textAlign: 'center' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-            <span style={{ fontSize: '24px' }}>🚩</span>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b', boxShadow: '0 0 10px #f59e0b' }} />
             <span className="holy-title" style={{ fontSize: '1rem', color: '#fbbf24', letterSpacing: '0.1em' }}>
               ॥ रामकृष्ण हरी ॥
             </span>
-            <span style={{ fontSize: '24px' }}>🚩</span>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f59e0b', boxShadow: '0 0 10px #f59e0b' }} />
           </div>
           <h1 className="holy-title" style={{ fontSize: '1.8rem', fontWeight: '900', color: '#f8fafc', margin: '4px 0' }}>
             PANDHARPUR DARSHAN 3D
@@ -115,10 +115,10 @@ export function WelcomeScreen() {
 
         {/* Navigation Quick Tips */}
         <div style={{ fontSize: '0.72rem', color: '#64748b', display: 'flex', justifyContent: 'center', gap: '16px' }}>
-          <span>🖱️ Left-Click: Orbit 3D</span>
-          <span>🖱️ Right-Click: Pan</span>
-          <span>📜 Scroll: Zoom</span>
-          <span>👆 Click: Inspect Landmarks</span>
+          <span>Left-Click: Orbit 3D</span>
+          <span>Right-Click: Pan</span>
+          <span>Scroll: Zoom</span>
+          <span>Click: Inspect Landmarks</span>
         </div>
 
         {/* Enter Button */}

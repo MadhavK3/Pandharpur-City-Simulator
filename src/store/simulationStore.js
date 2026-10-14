@@ -22,18 +22,19 @@ export const useSimulationStore = create((set, get) => ({
   activeStepIndex: 0,
   isPlaying: false,
   playbackSpeed: 1.0,
+  isPlaybackMinimized: false,
 
   // --- Environment & 3D Visuals ---
   timeOfDay: 'day', // 'day' | 'evening' | 'night' | 'aarti'
   cameraMode: 'orbit', // 'orbit' | 'flyover' | 'landmark' | 'first_person'
-  selectedLandmarkId: 'VITTHAL_RUKMINI_MANDIR',
+  selectedLandmarkId: null,
   focusedCoordinates: [0, 0, 0],
   showGraphOverlay: true,
   showCrowdParticles: true,
   showHeatmap: false,
 
   // --- UI Panes ---
-  isSidebarOpen: true,
+  isSidebarOpen: false,
   isAlgorithmLabOpen: false,
   isMissionPanelOpen: false,
   isNetworkEditorOpen: false,
@@ -112,9 +113,21 @@ export const useSimulationStore = create((set, get) => ({
   toggleHeatmap: () => set(state => ({ showHeatmap: !state.showHeatmap })),
 
   setSidebarOpen: (open) => set({ isSidebarOpen: open }),
-  setAlgorithmLabOpen: (open) => set({ isAlgorithmLabOpen: open }),
-  setMissionPanelOpen: (open) => set({ isMissionPanelOpen: open }),
-  setNetworkEditorOpen: (open) => set({ isNetworkEditorOpen: open }),
+  toggleSidebar: () => set(state => ({ isSidebarOpen: !state.isSidebarOpen })),
+  togglePlaybackMinimized: () => set(state => ({ isPlaybackMinimized: !state.isPlaybackMinimized })),
+
+  setAlgorithmLabOpen: (open) => set({
+    isAlgorithmLabOpen: open,
+    ...(open ? { selectedLandmarkId: null, isMissionPanelOpen: false, isNetworkEditorOpen: false } : {})
+  }),
+  setMissionPanelOpen: (open) => set({
+    isMissionPanelOpen: open,
+    ...(open ? { selectedLandmarkId: null, isAlgorithmLabOpen: false, isNetworkEditorOpen: false } : {})
+  }),
+  setNetworkEditorOpen: (open) => set({
+    isNetworkEditorOpen: open,
+    ...(open ? { selectedLandmarkId: null, isAlgorithmLabOpen: false, isMissionPanelOpen: false } : {})
+  }),
   setWelcomeModalOpen: (open) => set({ welcomeModalOpen: open }),
 
   selectLandmark: (landmarkId) => {
@@ -123,7 +136,10 @@ export const useSimulationStore = create((set, get) => ({
       set({
         selectedLandmarkId: landmarkId,
         focusedCoordinates: landmark.coordinates,
-        cameraMode: 'landmark'
+        cameraMode: 'landmark',
+        isAlgorithmLabOpen: false,
+        isMissionPanelOpen: false,
+        isNetworkEditorOpen: false
       });
     } else {
       set({ selectedLandmarkId: null });

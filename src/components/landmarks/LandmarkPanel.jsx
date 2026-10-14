@@ -11,6 +11,7 @@ import {
   Plus,
   X,
   Flame,
+  Camera,
   Image as ImageIcon
 } from 'lucide-react';
 
@@ -29,15 +30,15 @@ export function LandmarkPanel() {
 
   return (
     <div
-      className="glass-panel"
+      className="glass-panel slide-in-right"
       style={{
         position: 'absolute',
-        top: 'calc(var(--topbar-height) + 16px)',
-        right: '16px',
-        width: '360px',
-        maxHeight: 'calc(100vh - var(--topbar-height) - 120px)',
+        top: 'calc(var(--topbar-height) + 12px)',
+        right: '12px',
+        width: '340px',
+        maxHeight: 'calc(100vh - var(--topbar-height) - 100px)',
         overflowY: 'auto',
-        zIndex: 15,
+        zIndex: 20,
         padding: '16px',
         display: 'flex',
         flexDirection: 'column',
@@ -52,17 +53,18 @@ export function LandmarkPanel() {
           <span className="badge badge-gold" style={{ marginBottom: '4px' }}>
             {landmark.category.toUpperCase()}
           </span>
-          <h3 style={{ fontSize: '1.05rem', fontWeight: '800', color: '#fbbf24', margin: '4px 0 2px 0' }}>
+          <h3 style={{ fontSize: '1rem', fontWeight: '800', color: '#fbbf24', margin: '4px 0 2px 0' }}>
             {landmark.name}
           </h3>
-          <p style={{ fontSize: '0.8rem', color: '#fed7aa', margin: 0, fontWeight: '600' }}>
+          <p style={{ fontSize: '0.78rem', color: '#fed7aa', margin: 0, fontWeight: '600' }}>
             {landmark.marathiName}
           </p>
         </div>
         <button
           className="btn btn-icon"
           onClick={() => selectLandmark(null)}
-          style={{ padding: '4px' }}
+          style={{ padding: '4px', color: '#94a3b8' }}
+          title="Close details"
         >
           <X size={15} />
         </button>
@@ -76,7 +78,7 @@ export function LandmarkPanel() {
             alt={landmark.name}
             style={{
               width: '100%',
-              height: '160px',
+              height: '150px',
               objectFit: 'cover',
               display: 'block'
             }}
@@ -97,7 +99,10 @@ export function LandmarkPanel() {
               justifyContent: 'space-between'
             }}
           >
-            <span>📷 Authentic Photographic Reference</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <Camera size={12} color="#f59e0b" />
+              <span>Photographic Reference</span>
+            </span>
             <span style={{ color: '#fbbf24' }}>Pandharpur</span>
           </div>
         </div>

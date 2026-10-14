@@ -1,11 +1,53 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useSimulationStore } from '../../store/simulationStore.js';
 import { Html } from '@react-three/drei';
 
+function LandmarkPin({ id, title, position, color, selectedLandmarkId, hoveredLandmark, distanceFactor = 110 }) {
+  const isSelected = selectedLandmarkId === id;
+  const isHovered = hoveredLandmark === id;
+  const showDetail = isSelected || isHovered;
+
+  return (
+    <Html position={position} center distanceFactor={distanceFactor} zIndexRange={[0, 0]}>
+      {showDetail ? (
+        <div
+          style={{
+            background: 'rgba(9, 13, 22, 0.94)',
+            border: isSelected ? `2px solid ${color}` : `1px solid ${color}`,
+            boxShadow: `0 0 16px ${color}80`,
+            borderRadius: '6px',
+            padding: '4px 10px',
+            color: color,
+            fontSize: '11px',
+            fontWeight: '700',
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none'
+          }}
+        >
+          {title}
+        </div>
+      ) : (
+        <div
+          style={{
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            background: color,
+            boxShadow: `0 0 10px ${color}`,
+            border: '1.5px solid #090d16',
+            pointerEvents: 'none'
+          }}
+        />
+      )}
+    </Html>
+  );
+}
+
 export function TempleLandmarks() {
   const selectLandmark = useSimulationStore(state => state.selectLandmark);
   const selectedLandmarkId = useSimulationStore(state => state.selectedLandmarkId);
+  const [hoveredLandmark, setHoveredLandmark] = useState(null);
 
   const flagRef = useRef();
 
@@ -29,6 +71,11 @@ export function TempleLandmarks() {
           e.stopPropagation();
           selectLandmark('VITTHAL_RUKMINI_MANDIR');
         }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHoveredLandmark('VITTHAL_RUKMINI_MANDIR');
+        }}
+        onPointerOut={() => setHoveredLandmark(null)}
       >
         {/* Outer Temple Enclosure Wall (Prakara Wall) */}
         <group position={[0, 0, 0]}>
@@ -143,24 +190,14 @@ export function TempleLandmarks() {
         </mesh>
 
         {/* Floating Name Badge */}
-        <Html position={[0, 34, -10]} center distanceFactor={110}>
-          <div
-            style={{
-              background: 'rgba(9, 13, 22, 0.92)',
-              border: selectedLandmarkId === 'VITTHAL_RUKMINI_MANDIR' ? '2px solid #fbbf24' : '1px solid rgba(245, 158, 11, 0.5)',
-              boxShadow: '0 0 20px rgba(245, 158, 11, 0.6)',
-              borderRadius: '8px',
-              padding: '6px 14px',
-              color: '#fbbf24',
-              fontSize: '13px',
-              fontWeight: '800',
-              whiteSpace: 'nowrap',
-              pointerEvents: 'none'
-            }}
-          >
-            🚩 Shree Vitthal-Rukmini Mandir
-          </div>
-        </Html>
+        <LandmarkPin
+          id="VITTHAL_RUKMINI_MANDIR"
+          title="Shree Vitthal-Rukmini Mandir"
+          position={[0, 34, -10]}
+          color="#fbbf24"
+          selectedLandmarkId={selectedLandmarkId}
+          hoveredLandmark={hoveredLandmark}
+        />
       </group>
 
       {/* ============================================================== */}
@@ -192,6 +229,11 @@ export function TempleLandmarks() {
           e.stopPropagation();
           selectLandmark('PUNDALIKA_MANDIR');
         }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHoveredLandmark('PUNDALIKA_MANDIR');
+        }}
+        onPointerOut={() => setHoveredLandmark(null)}
       >
         {/* River Island Plinth */}
         <mesh position={[0, 1.2, 0]} castShadow>
@@ -213,11 +255,14 @@ export function TempleLandmarks() {
           <sphereGeometry args={[1.1, 16, 16]} />
           <meshStandardMaterial color="#fbbf24" metalness={0.9} emissive="#f59e0b" emissiveIntensity={0.6} />
         </mesh>
-        <Html position={[0, 16.5, 0]} center distanceFactor={110}>
-          <div style={{ background: 'rgba(9, 13, 22, 0.9)', border: '1px solid #f97316', borderRadius: '6px', padding: '4px 10px', color: '#fed7aa', fontSize: '11px', fontWeight: 'bold' }}>
-            🪔 Bhakta Pundalik Mandir
-          </div>
-        </Html>
+        <LandmarkPin
+          id="PUNDALIKA_MANDIR"
+          title="Bhakta Pundalik Mandir"
+          position={[0, 16.5, 0]}
+          color="#f97316"
+          selectedLandmarkId={selectedLandmarkId}
+          hoveredLandmark={hoveredLandmark}
+        />
       </group>
 
       {/* ============================================================== */}
@@ -266,6 +311,11 @@ export function TempleLandmarks() {
           e.stopPropagation();
           selectLandmark('ISKCON_PANDHARPUR');
         }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHoveredLandmark('ISKCON_PANDHARPUR');
+        }}
+        onPointerOut={() => setHoveredLandmark(null)}
       >
         <mesh position={[0, 2.0, 0]} castShadow>
           <boxGeometry args={[22, 3.8, 26]} />
@@ -283,11 +333,14 @@ export function TempleLandmarks() {
           <sphereGeometry args={[1.5, 16, 16]} />
           <meshStandardMaterial color="#fbbf24" metalness={0.9} />
         </mesh>
-        <Html position={[0, 23.0, 0]} center distanceFactor={110}>
-          <div style={{ background: 'rgba(9, 13, 22, 0.9)', border: '1px solid #3b82f6', borderRadius: '6px', padding: '4px 10px', color: '#93c5fd', fontSize: '11px', fontWeight: 'bold' }}>
-            🏛️ ISKCON Temple
-          </div>
-        </Html>
+        <LandmarkPin
+          id="ISKCON_PANDHARPUR"
+          title="ISKCON Temple"
+          position={[0, 23.0, 0]}
+          color="#60a5fa"
+          selectedLandmarkId={selectedLandmarkId}
+          hoveredLandmark={hoveredLandmark}
+        />
       </group>
 
       {/* ============================================================== */}
@@ -330,6 +383,11 @@ export function TempleLandmarks() {
           e.stopPropagation();
           selectLandmark('PANDHARPUR_RAILWAY_STATION');
         }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHoveredLandmark('PANDHARPUR_RAILWAY_STATION');
+        }}
+        onPointerOut={() => setHoveredLandmark(null)}
       >
         {/* Concourse Hall */}
         <mesh position={[0, 4.5, 0]} castShadow>
@@ -353,11 +411,14 @@ export function TempleLandmarks() {
             <meshStandardMaterial color="#1e293b" metalness={0.9} />
           </mesh>
         ))}
-        <Html position={[0, 12.0, 0]} center distanceFactor={110}>
-          <div style={{ background: 'rgba(9, 13, 22, 0.9)', border: '1px solid #10b981', borderRadius: '6px', padding: '4px 10px', color: '#6ee7b7', fontSize: '11px', fontWeight: 'bold' }}>
-            🚆 Railway Station
-          </div>
-        </Html>
+        <LandmarkPin
+          id="PANDHARPUR_RAILWAY_STATION"
+          title="Railway Station"
+          position={[0, 12.0, 0]}
+          color="#34d399"
+          selectedLandmarkId={selectedLandmarkId}
+          hoveredLandmark={hoveredLandmark}
+        />
       </group>
 
       {/* ============================================================== */}
@@ -369,6 +430,11 @@ export function TempleLandmarks() {
           e.stopPropagation();
           selectLandmark('MSRTC_BUS_STAND');
         }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHoveredLandmark('MSRTC_BUS_STAND');
+        }}
+        onPointerOut={() => setHoveredLandmark(null)}
       >
         <mesh position={[0, 4.0, 0]} castShadow>
           <boxGeometry args={[26, 8.0, 15]} />
@@ -389,11 +455,14 @@ export function TempleLandmarks() {
             <meshStandardMaterial color="#f8fafc" />
           </mesh>
         </group>
-        <Html position={[0, 9.5, 0]} center distanceFactor={110}>
-          <div style={{ background: 'rgba(9, 13, 22, 0.9)', border: '1px solid #f97316', borderRadius: '6px', padding: '4px 10px', color: '#fed7aa', fontSize: '11px', fontWeight: 'bold' }}>
-            🚌 Central Bus Stand
-          </div>
-        </Html>
+        <LandmarkPin
+          id="MSRTC_BUS_STAND"
+          title="Central Bus Stand"
+          position={[0, 9.5, 0]}
+          color="#fb923c"
+          selectedLandmarkId={selectedLandmarkId}
+          hoveredLandmark={hoveredLandmark}
+        />
       </group>
 
       {/* ============================================================== */}
@@ -405,6 +474,11 @@ export function TempleLandmarks() {
           e.stopPropagation();
           selectLandmark('SHIVAJI_CHOWK');
         }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHoveredLandmark('SHIVAJI_CHOWK');
+        }}
+        onPointerOut={() => setHoveredLandmark(null)}
       >
         {/* Roundabout Island */}
         <mesh position={[0, 0.25, 0]}>
@@ -421,11 +495,14 @@ export function TempleLandmarks() {
           <cylinderGeometry args={[0.7, 1.2, 3.6, 8]} />
           <meshStandardMaterial color="#b45309" metalness={0.7} roughness={0.4} />
         </mesh>
-        <Html position={[0, 8.5, 0]} center distanceFactor={110}>
-          <div style={{ background: 'rgba(9, 13, 22, 0.9)', border: '1px solid #f59e0b', borderRadius: '6px', padding: '4px 10px', color: '#fde68a', fontSize: '11px', fontWeight: 'bold' }}>
-            ⚔️ Shivaji Maharaj Chowk
-          </div>
-        </Html>
+        <LandmarkPin
+          id="SHIVAJI_CHOWK"
+          title="Shivaji Maharaj Chowk"
+          position={[0, 8.5, 0]}
+          color="#facc15"
+          selectedLandmarkId={selectedLandmarkId}
+          hoveredLandmark={hoveredLandmark}
+        />
       </group>
     </group>
   );

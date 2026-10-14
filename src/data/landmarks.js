@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Landmarks database for Pandharpur Darshan 3D
  * Accurate cultural, historical, and geographic representation
  * Linked with authentic photography and reference cartography.
@@ -15,7 +15,7 @@ export const LANDMARKS = [
     graphNodeId: 'VITTHAL_ENTRANCE',
     image: '/images/vitthal_mandir.jpg',
     significance: 'Spiritual epicenter of Maharashtra & Warkari Sampradaya; 12th-century shrine dedicated to Lord Vitthal (Vithoba) and Rukmini Devi with Hemadpanthi stone shikhara.',
-    darshanTime: '04:00 AM – 11:00 PM',
+    darshanTime: '04:00 AM - 11:00 PM',
     aartiTimings: ['04:30 AM Kakad Aarti', '11:00 AM Mahapooja', '07:00 PM Dhup Aarti', '10:30 PM Shej Aarti'],
     crowdLevel: 'high',
     avgWaitMinutes: 45,
@@ -62,7 +62,7 @@ export const LANDMARKS = [
     graphNodeId: 'VIPRA_GHAT',
     image: '/images/chandrabhaga_river.jpg',
     significance: 'Tranquil northern ghat named after Lord Dattatreya temple, favored for morning holy snan and evening river deepotsav.',
-    darshanTime: '05:00 AM – 09:00 PM',
+    darshanTime: '05:00 AM - 09:00 PM',
     crowdLevel: 'medium',
     icon: 'Waves'
   },
@@ -90,7 +90,7 @@ export const LANDMARKS = [
     graphNodeId: 'PUNDALIK_NODE',
     image: '/images/chandrabhaga_river.jpg',
     significance: 'Riverside temple standing directly in the Chandrabhaga riverbed honoring Bhakta Pundalik who threw a brick (vit) for Lord Vitthal to wait upon.',
-    darshanTime: '05:00 AM – 10:00 PM',
+    darshanTime: '05:00 AM - 10:00 PM',
     crowdLevel: 'high',
     icon: 'Flame',
     featured: true
@@ -103,7 +103,7 @@ export const LANDMARKS = [
     coordinates: [110, -0.6, 35],
     graphNodeId: 'JANABAI_NODE',
     significance: 'Sacred samadhi memorial of 13th-century saint-poet Janabai on the Chandrabhaga sands, close disciple of Namdev.',
-    darshanTime: '06:00 AM – 09:00 PM',
+    darshanTime: '06:00 AM - 09:00 PM',
     crowdLevel: 'medium',
     icon: 'BookOpen'
   },
@@ -115,7 +115,7 @@ export const LANDMARKS = [
     coordinates: [108, -0.6, -30],
     graphNodeId: 'BHANUDAS_NODE',
     significance: 'Memorial of Sant Bhanudas who historically restored the Vitthal idol from the Vijayanagara Empire back to Pandharpur.',
-    darshanTime: '06:00 AM – 08:30 PM',
+    darshanTime: '06:00 AM - 08:30 PM',
     crowdLevel: 'low',
     icon: 'Award'
   },
@@ -139,7 +139,7 @@ export const LANDMARKS = [
     coordinates: [80, 0.1, -45],
     graphNodeId: 'MALLIKARJUNA_NODE',
     significance: 'Ancient Shiva shrine signifying the harmonious unity of Shaivism and Vaishnavism in Pandharpur.',
-    darshanTime: '05:30 AM – 09:00 PM',
+    darshanTime: '05:30 AM - 09:00 PM',
     crowdLevel: 'low',
     icon: 'Sparkles'
   },
@@ -151,7 +151,7 @@ export const LANDMARKS = [
     coordinates: [45, 0.1, 138],
     graphNodeId: 'GOPALPUR_JUNCTION',
     significance: 'Historic hill shrine representing the cowshed of Lord Krishna where Kala (flattened rice prasad) is celebrated on Ashadhi Purnima.',
-    darshanTime: '06:00 AM – 08:00 PM',
+    darshanTime: '06:00 AM - 08:00 PM',
     crowdLevel: 'medium',
     icon: 'Sun'
   },
@@ -163,7 +163,7 @@ export const LANDMARKS = [
     coordinates: [95, 0.1, -120],
     graphNodeId: 'ISKCON_NODE',
     significance: 'Majestic modern stone temple campus across Chandrabhaga with goshala, guest houses, and Vedic cultural center.',
-    darshanTime: '04:30 AM – 08:30 PM',
+    darshanTime: '04:30 AM - 08:30 PM',
     crowdLevel: 'medium',
     icon: 'Building2',
     featured: true
@@ -176,7 +176,7 @@ export const LANDMARKS = [
     coordinates: [55, 0.1, -75],
     graphNodeId: 'CHAITANYA_MATH_NODE',
     significance: 'Prominent spiritual study and bhajan center founded in the Warkari monastic tradition.',
-    darshanTime: '06:00 AM – 08:00 PM',
+    darshanTime: '06:00 AM - 08:00 PM',
     crowdLevel: 'low',
     icon: 'Home'
   },
@@ -188,7 +188,7 @@ export const LANDMARKS = [
     coordinates: [-30, 0.1, -55],
     graphNodeId: 'TANPURE_MATH_NODE',
     significance: 'Renowned Warkari ashram known for Annachhatra (free community meals) during pilgrimage seasons.',
-    darshanTime: '07:00 AM – 09:00 PM',
+    darshanTime: '07:00 AM - 09:00 PM',
     crowdLevel: 'medium',
     icon: 'Utensils'
   },
@@ -285,7 +285,7 @@ export const LANDMARKS = [
     coordinates: [-45, 0, -80],
     graphNodeId: 'JIJABAI_GARDEN_NODE',
     significance: 'Pleasant municipal public park offering shade, rest pavilions, and drinking water kiosks.',
-    darshanTime: '06:00 AM – 09:00 PM',
+    darshanTime: '06:00 AM - 09:00 PM',
     crowdLevel: 'low',
     icon: 'Trees'
   },

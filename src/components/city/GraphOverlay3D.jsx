@@ -116,7 +116,7 @@ export function GraphOverlay3D() {
 
             {/* Red Barricade Sign if Closed */}
             {isClosed && (
-              <Html position={[mid.x, mid.y + 1.2, mid.z]} center distanceFactor={70}>
+              <Html position={[mid.x, mid.y + 1.2, mid.z]} center distanceFactor={70} zIndexRange={[0, 0]}>
                 <div style={{
                   background: '#ef4444',
                   color: '#ffffff',
@@ -128,14 +128,14 @@ export function GraphOverlay3D() {
                   whiteSpace: 'nowrap',
                   cursor: 'pointer'
                 }}>
-                  ⛔ BARRICADED
+                  BARRICADED
                 </div>
               </Html>
             )}
 
             {/* Edge Info on Hover */}
             {isHovered && !isClosed && (
-              <Html position={[mid.x, mid.y + 1.0, mid.z]} center distanceFactor={70}>
+              <Html position={[mid.x, mid.y + 1.0, mid.z]} center distanceFactor={70} zIndexRange={[0, 0]}>
                 <div style={{
                   background: 'rgba(15, 23, 42, 0.9)',
                   border: '1px solid #f59e0b',
@@ -223,7 +223,7 @@ export function GraphOverlay3D() {
 
             {/* Label on Hover or Key Nodes */}
             {(isHovered || isStart || isEnd || isMultiStop) && (
-              <Html position={[0, nodeSize + 0.8, 0]} center distanceFactor={60}>
+              <Html position={[0, nodeSize + 0.8, 0]} center distanceFactor={60} zIndexRange={[0, 0]}>
                 <div style={{
                   background: isStart ? 'rgba(16, 185, 129, 0.9)' : isEnd ? 'rgba(245, 158, 11, 0.9)' : 'rgba(15, 23, 42, 0.9)',
                   color: isStart || isEnd ? '#090d16' : '#f8fafc',
@@ -236,7 +236,7 @@ export function GraphOverlay3D() {
                   pointerEvents: 'none',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.5)'
                 }}>
-                  {isStart ? '🚩 START: ' : isEnd ? '🎯 GOAL: ' : isMultiStop ? '📍 STOP: ' : ''}
+                  {isStart ? 'START: ' : isEnd ? 'GOAL: ' : isMultiStop ? 'STOP: ' : ''}
                   {node.name}
                 </div>
               </Html>

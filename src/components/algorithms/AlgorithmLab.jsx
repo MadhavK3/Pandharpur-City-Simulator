@@ -29,13 +29,14 @@ export function AlgorithmLab() {
 
   return (
     <div
+      className="slide-in-right"
       style={{
         position: 'absolute',
-        top: 'calc(var(--topbar-height) + 16px)',
-        right: '16px',
-        bottom: '90px',
-        width: '520px',
-        zIndex: 25,
+        top: 'calc(var(--topbar-height) + 12px)',
+        right: '12px',
+        bottom: '80px',
+        width: 'min(480px, calc(100vw - 24px))',
+        zIndex: 20,
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '12px',
@@ -215,7 +216,7 @@ export function AlgorithmLab() {
                       }}
                     >
                       <span style={{ color: '#f8fafc', fontWeight: idx === 0 ? '700' : '400' }}>
-                        {idx === 0 ? '👑 Head: ' : `${idx + 1}. `} {item.nodeId}
+                        {idx === 0 ? 'Head: ' : `${idx + 1}. `} {item.nodeId}
                       </span>
                       <span className="mono-font" style={{ color: '#34d399', fontWeight: '700' }}>
                         {item.h !== undefined ? `f=${item.dist} (g=${item.g}, h=${item.h})` : `${item.dist}m`}
