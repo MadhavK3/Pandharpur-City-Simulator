@@ -5,6 +5,81 @@ import { getLandmarkById } from '../data/landmarks.js';
 import { MISSIONS, getMissionById } from '../data/missions.js';
 import confetti from 'canvas-confetti';
 
+export const GUIDED_TOUR_STOPS = [
+  {
+    id: 'PANDHARPUR_RAILWAY_STATION',
+    title: 'Pandharpur Railway Station',
+    marathi: 'पंढरपूर रेल्वे स्थानक',
+    description: 'Western gateway welcoming millions of Warkari pilgrims from across Maharashtra and India.',
+    coords: [-170, 0.1, 65],
+    camPos: [-170, 16, 95],
+    lookAt: [-170, 2, 65]
+  },
+  {
+    id: 'SHIVAJI_CHOWK',
+    title: 'Chhatrapati Shivaji Maharaj Chowk',
+    marathi: 'छत्रपती शिवाजी महाराज चौक',
+    description: 'Central roundabout connecting transit avenues to the sacred temple precinct.',
+    coords: [-55, 0.1, 0],
+    camPos: [-55, 14, 25],
+    lookAt: [-55, 2, 0]
+  },
+  {
+    id: 'MAHADWAR_CHOWK',
+    title: 'Mahadwar Bazaar & Alley',
+    marathi: 'महाद्वार बाजार चौक',
+    description: 'Bustling historic bazaar lined with carved timber wadas, tulsi malas, and devotional stalls.',
+    coords: [-20, 0.1, 20],
+    camPos: [-20, 10, 36],
+    lookAt: [-20, 2, 20]
+  },
+  {
+    id: 'NAMDEV_PAYARTHI',
+    title: 'Sant Namdev Payari',
+    marathi: 'संत नामदेव पायरी',
+    description: 'Sacred first step where Sant Namdev took samadhi, expressing supreme humility before Lord Vitthal.',
+    coords: [-4, 0.4, 15],
+    camPos: [-4, 6, 26],
+    lookAt: [-4, 1.2, 15]
+  },
+  {
+    id: 'VITTHAL_RUKMINI_MANDIR',
+    title: 'Shree Vitthal-Rukmini Mandir',
+    marathi: 'श्री विठ्ठल रुक्मिणी मंदिर',
+    description: 'Spiritual epicenter of Pandharpur with grand Hemadpanthi shikhara and golden kalasha.',
+    coords: [0, 0, 0],
+    camPos: [0, 24, 34],
+    lookAt: [0, 10, 0]
+  },
+  {
+    id: 'CHANDRABHAGA_GHAT',
+    title: 'Chandrabhaga Mahaghat',
+    marathi: 'चंद्रभागा महाघाट',
+    description: 'Crescent riverfront with carved basalt steps where pilgrims take holy snan (sacred bath).',
+    coords: [95, -1.0, 0],
+    camPos: [72, 12, 0],
+    lookAt: [95, -0.4, 0]
+  },
+  {
+    id: 'PUNDALIKA_MANDIR',
+    title: 'Bhakta Pundalik Mandir',
+    marathi: 'भक्त पुंडलिक मंदिर',
+    description: 'Island shrine in the Chandrabhaga riverbed dedicated to Bhakta Pundalik who threw the holy brick.',
+    coords: [115, -0.6, 5],
+    camPos: [100, 10, 16],
+    lookAt: [115, 2.5, 5]
+  },
+  {
+    id: 'ISKCON_PANDHARPUR',
+    title: 'ISKCON Chandrabhaga Mandir',
+    marathi: 'इस्कॉन पंढरपूर मंदिर',
+    description: 'Peaceful riverside campus with traditional stone architecture and sprawling gardens.',
+    coords: [95, 0.1, -120],
+    camPos: [76, 16, -100],
+    lookAt: [95, 4, -120]
+  }
+];
+
 export const useSimulationStore = create((set, get) => ({
   // --- Algorithm & Routing Configuration ---
   selectedAlgorithm: 'DIJKSTRA',
@@ -26,12 +101,19 @@ export const useSimulationStore = create((set, get) => ({
 
   // --- Environment & 3D Visuals ---
   timeOfDay: 'day', // 'day' | 'evening' | 'night' | 'aarti'
-  cameraMode: 'orbit', // 'orbit' | 'flyover' | 'landmark' | 'first_person'
+  cameraMode: 'orbit', // 'orbit' | 'flyover' | 'landmark' | 'aerial' | 'ground' | 'guided_tour'
   selectedLandmarkId: null,
   focusedCoordinates: [0, 0, 0],
   showGraphOverlay: true,
   showCrowdParticles: true,
   showHeatmap: false,
+  bloomEnabled: true,
+
+  // --- Guided Tour & Ground Navigation ---
+  guidedTourActive: false,
+  guidedTourIndex: 0,
+  isTourPaused: false,
+  moveJoystickVector: { x: 0, y: 0 },
 
   // --- UI Panes ---
   isSidebarOpen: false,
@@ -106,11 +188,60 @@ export const useSimulationStore = create((set, get) => ({
   },
 
   setTimeOfDay: (time) => set({ timeOfDay: time }),
-  setCameraMode: (mode) => set({ cameraMode: mode }),
+  setCameraMode: (mode) => {
+    if (mode === 'guided_tour') {
+      get().startGuidedTour();
+    } else {
+      set({ cameraMode: mode, guidedTourActive: false });
+    }
+  },
+
+  startGuidedTour: () => {
+    set({
+      cameraMode: 'guided_tour',
+      guidedTourActive: true,
+      guidedTourIndex: 0,
+      isTourPaused: false,
+      selectedLandmarkId: null,
+      isAlgorithmLabOpen: false,
+      isMissionPanelOpen: false,
+      isNetworkEditorOpen: false
+    });
+  },
+
+  stopGuidedTour: () => {
+    set({
+      guidedTourActive: false,
+      cameraMode: 'orbit'
+    });
+  },
+
+  nextTourStop: () => {
+    const { guidedTourIndex } = get();
+    if (guidedTourIndex < GUIDED_TOUR_STOPS.length - 1) {
+      set({ guidedTourIndex: guidedTourIndex + 1 });
+    } else {
+      set({ guidedTourIndex: 0 });
+    }
+  },
+
+  prevTourStop: () => {
+    const { guidedTourIndex } = get();
+    if (guidedTourIndex > 0) {
+      set({ guidedTourIndex: guidedTourIndex - 1 });
+    } else {
+      set({ guidedTourIndex: GUIDED_TOUR_STOPS.length - 1 });
+    }
+  },
+
+  toggleTourPause: () => set(state => ({ isTourPaused: !state.isTourPaused })),
+  setTourIndex: (idx) => set({ guidedTourIndex: Math.max(0, Math.min(idx, GUIDED_TOUR_STOPS.length - 1)) }),
+  setMoveJoystickVector: (vec) => set({ moveJoystickVector: vec }),
 
   toggleGraphOverlay: () => set(state => ({ showGraphOverlay: !state.showGraphOverlay })),
   toggleCrowdParticles: () => set(state => ({ showCrowdParticles: !state.showCrowdParticles })),
   toggleHeatmap: () => set(state => ({ showHeatmap: !state.showHeatmap })),
+  toggleBloom: () => set(state => ({ bloomEnabled: !state.bloomEnabled })),
 
   setSidebarOpen: (open) => set({ isSidebarOpen: open }),
   toggleSidebar: () => set(state => ({ isSidebarOpen: !state.isSidebarOpen })),

@@ -54,6 +54,13 @@ export function LightingController() {
       <color attach="background" args={[current.fogColor]} />
       <fog attach="fog" args={[current.fogColor, current.fogNear, current.fogFar]} />
       <ambientLight color={current.ambientColor} intensity={current.ambientIntensity} />
+      <hemisphereLight
+        args={[
+          timeOfDay === 'night' ? '#1e293b' : timeOfDay === 'evening' ? '#fdba74' : '#bae6fd',
+          timeOfDay === 'night' ? '#090d16' : '#44403c',
+          0.75
+        ]}
+      />
       <directionalLight
         position={current.sunPos}
         intensity={current.sunIntensity}
@@ -61,15 +68,17 @@ export function LightingController() {
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
+        shadow-bias={-0.0001}
+        shadow-normalBias={0.02}
         shadow-camera-near={10}
-        shadow-camera-far={450}
-        shadow-camera-left={-220}
-        shadow-camera-right={220}
-        shadow-camera-top={220}
-        shadow-camera-bottom={-220}
+        shadow-camera-far={480}
+        shadow-camera-left={-240}
+        shadow-camera-right={240}
+        shadow-camera-top={240}
+        shadow-camera-bottom={-240}
       />
       {/* Golden divine aura point light directly above Shree Vitthal Mandir */}
-      <pointLight position={[0, 28, -10]} color="#fbbf24" intensity={4.5} distance={120} />
+      <pointLight position={[0, 32, -10]} color="#fbbf24" intensity={5.0} distance={140} />
       {/* Chandrabhaga Ghat Aarti Lanterns Glow */}
       <pointLight position={[95, 8, 0]} color="#f97316" intensity={3.5} distance={90} />
       {/* Pundalik Temple Island Glow */}
