@@ -12,6 +12,7 @@ import { RouteAnimation3D } from './RouteAnimation3D.jsx';
 import { CrowdSimulation } from './CrowdSimulation.jsx';
 import { CameraController } from './CameraController.jsx';
 import { PostProcessingPipeline } from './PostProcessingPipeline.jsx';
+import { CustomBlenderScene } from './BlenderModel.jsx';
 
 export function CityCanvas() {
   return (
@@ -32,6 +33,7 @@ export function CityCanvas() {
           <RiverEnvironment />
           <TempleLandmarks />
           <BuildingGenerator />
+          <CustomBlenderScene />
           <RoadNetwork3D />
           <GraphOverlay3D />
           <RouteAnimation3D />

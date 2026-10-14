@@ -3,6 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import { useSimulationStore } from '../../store/simulationStore.js';
 import { Html } from '@react-three/drei';
 import { getBasaltStoneTexture } from '../../engine/rendering/textureUtils.js';
+import { BlenderModel } from './BlenderModel.jsx';
 
 function LandmarkPin({ id, title, position, color, selectedLandmarkId, hoveredLandmark, distanceFactor = 110 }) {
   const isSelected = selectedLandmarkId === id;
@@ -82,7 +83,12 @@ export function TempleLandmarks() {
         }}
         onPointerOut={() => setHoveredLandmark(null)}
       >
-        {/* Outer Temple Enclosure Wall (Prakara Wall) with Crenellations */}
+        <BlenderModel
+          src="/models/vitthal_mandir.glb"
+          modelName="VITTHAL_RUKMINI_MANDIR"
+          fallback={
+            <>
+              {/* Outer Temple Enclosure Wall (Prakara Wall) with Crenellations */}
         <group position={[0, 0, 0]}>
           {/* North Wall */}
           <mesh position={[0, 2.8, -28]} castShadow receiveShadow>
@@ -309,6 +315,9 @@ export function TempleLandmarks() {
             <meshStandardMaterial color="#166534" roughness={0.9} />
           </mesh>
         </group>
+          </>
+        }
+      />
 
         {/* Floating Name Badge */}
         <LandmarkPin

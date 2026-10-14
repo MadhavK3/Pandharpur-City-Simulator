@@ -73,10 +73,10 @@ export function RiverEnvironment() {
           vec3 finalColor = mix(waterBase, vec3(0.85, 0.94, 1.0), fresnel * 0.65 + shimmer);
           finalColor += uSunColor * specular * 1.9;
 
-          gl_FragColor = vec4(finalColor, 0.91);
+          gl_FragColor = vec4(finalColor, 1.0);
         }
       `,
-      transparent: true,
+      transparent: false,
       side: THREE.DoubleSide
     });
   }, []);
@@ -110,21 +110,21 @@ export function RiverEnvironment() {
       <mesh
         ref={waterMeshRef}
         rotation={[-Math.PI / 2, 0, 0]}
-        position={[128, -1.05, 0]}
+        position={[130, -1.05, 0]}
         receiveShadow
         material={waterMaterial}
       >
-        <planeGeometry args={[92, 450, 64, 64]} />
+        <planeGeometry args={[106, 460, 64, 64]} />
       </mesh>
 
       {/* Riverbed Basin Underwater Foundation */}
       <mesh
         rotation={[-Math.PI / 2, 0, 0]}
-        position={[128, -2.4, 0]}
+        position={[130, -2.4, 0]}
       >
-        <planeGeometry args={[95, 450]} />
+        <planeGeometry args={[140, 480]} />
         <meshStandardMaterial
-          color="#0f172a"
+          color="#0c1527"
           roughness={0.96}
         />
       </mesh>

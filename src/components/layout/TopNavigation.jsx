@@ -16,7 +16,8 @@ import {
   Navigation,
   Footprints,
   MapPin,
-  Sparkles
+  Sparkles,
+  Box
 } from 'lucide-react';
 
 export function TopNavigation() {
@@ -31,6 +32,10 @@ export function TopNavigation() {
   const toggleCrowdParticles = useSimulationStore(state => state.toggleCrowdParticles);
   const bloomEnabled = useSimulationStore(state => state.bloomEnabled);
   const toggleBloom = useSimulationStore(state => state.toggleBloom);
+
+  const isBlenderModalOpen = useSimulationStore(state => state.isBlenderModalOpen);
+  const setBlenderModalOpen = useSimulationStore(state => state.setBlenderModalOpen);
+  const blenderSyncEnabled = useSimulationStore(state => state.blenderSyncEnabled);
 
   const isAlgorithmLabOpen = useSimulationStore(state => state.isAlgorithmLabOpen);
   const setAlgorithmLabOpen = useSimulationStore(state => state.setAlgorithmLabOpen);
@@ -233,6 +238,20 @@ export function TopNavigation() {
         >
           <Sparkles size={13} />
           <span>Bloom</span>
+        </button>
+
+        <button
+          className="topbar-btn"
+          style={{
+            background: isBlenderModalOpen ? 'rgba(249, 115, 22, 0.25)' : 'rgba(255, 255, 255, 0.05)',
+            borderColor: isBlenderModalOpen ? '#f97316' : blenderSyncEnabled ? 'rgba(16, 185, 129, 0.4)' : 'transparent',
+            color: isBlenderModalOpen ? '#fb923c' : blenderSyncEnabled ? '#34d399' : '#94a3b8'
+          }}
+          onClick={() => setBlenderModalOpen(!isBlenderModalOpen)}
+          title="Blender 3D Live Sync & Model Manager"
+        >
+          <Box size={13} />
+          <span>Blender Sync</span>
         </button>
       </div>
 
