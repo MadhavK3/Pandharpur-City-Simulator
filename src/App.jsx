@@ -9,6 +9,7 @@ import { MissionPanel } from './components/missions/MissionPanel.jsx';
 import { NetworkEditor } from './components/network/NetworkEditor.jsx';
 import { GroundControlsUI } from './components/city/GroundControlsUI.jsx';
 import { WelcomeScreen } from './screens/WelcomeScreen.jsx';
+import { BlenderSyncModal } from './components/simulation/BlenderSyncModal.jsx';
 import { useSimulationStore } from './store/simulationStore.js';
 
 export function App() {
@@ -34,6 +35,7 @@ export function App() {
       <NetworkEditor />
       <GroundControlsUI />
       <WelcomeScreen />
+      <BlenderSyncModal />
     </div>
   );
 }
