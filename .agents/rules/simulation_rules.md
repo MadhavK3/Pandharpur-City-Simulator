@@ -15,7 +15,16 @@
 - Opening `isAlgorithmLabOpen`, `isMissionPanelOpen`, `isNetworkEditorOpen`, or selecting a landmark via `selectLandmark` must automatically dismiss competing right drawers.
 - The playback dock must support minimization (`isPlaybackMinimized`) to prevent obstructing lower scene views.
 
-## 4. Verification
+## 4. Urban Geometry and Setbacks
+- Never use 4-sided `coneGeometry` for rectangular roofs; use rectangular hip roofs aligned to building wall coordinates with eave overhangs <= 0.4m.
+- Maintain minimum setbacks equal to road width plus curbs, sidewalks, and a 3m pedestrian clearance corridor.
+- Keep landmark courtyards, circular chowks, and temple sanctums clear of procedural filler meshes.
+
+## 5. Header and Navigation Layout
+- Fixed-height topbars must set `overflow-x: auto` and `overflow-y: hidden`.
+- Header brand titles and subtitles must define `white-space: nowrap` and `flex-shrink: 0` to prevent vertical text clipping.
+
+## 6. Verification
 - Verify all algorithm tests with `npx vitest run`.
 - Verify production bundles with `npm run build`.
 

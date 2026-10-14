@@ -118,3 +118,46 @@ export function CameraRig({ targetCoords }) {
 3. **Lighting & Shadows**:
    - Maintain a single primary `directionalLight` with shadows enabled (`castShadow`). Set shadow map size to `[2048, 2048]` with `shadow-bias={-0.0005}` to prevent shadow acne.
 
+---
+
+## 4. Procedural Roof Generation for Rectangular Footprints
+
+### The 4-Sided Cone Trap
+Using `coneGeometry(radius, height, 4)` for building roofs rotates the base 45 degrees relative to axis-aligned walls. In dense urban layouts, this creates diagonal corners that stick out 3m to 5m into adjacent streets and clip into neighboring roofs.
+
+### Correct Pattern: Custom Hip Roof Geometry
+Use a custom `BufferGeometry` with vertices aligned squarely to the building footprint and bounded eaves:
+
+```javascript
+import * as THREE from 'three';
+
+export function createHipRoofGeometry(width, depth, height, eave = 0.35) {
+  const halfW = width / 2 + eave;
+  const halfD = depth / 2 + eave;
+  const ridgeOffset = Math.max(0, halfW - halfD);
+
+  const geom = new THREE.BufferGeometry();
+  const vertices = new Float32Array([
+    -halfW, 0, -halfD, // 0: SW eave
+     halfW, 0, -halfD, // 1: SE eave
+     halfW, 0,  halfD, // 2: NE eave
+    -halfW, 0,  halfD, // 3: NW eave
+    -ridgeOffset, height, 0, // 4: West ridge
+     ridgeOffset, height, 0  // 5: East ridge
+  ]);
+
+  const indices = [
+    0, 1, 5,   0, 5, 4, // South face
+    1, 2, 5,            // East hipped end
+    2, 3, 4,   2, 4, 5, // North face
+    3, 0, 4             // West hipped end
+  ];
+
+  geom.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+  geom.setIndex(indices);
+  geom.computeVertexNormals();
+  return geom;
+}
+```
+
+

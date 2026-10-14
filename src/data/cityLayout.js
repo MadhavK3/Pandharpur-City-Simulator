@@ -34,84 +34,87 @@ export const GHAT_STEPS = [
 // Realistic city buildings distributed across Pandharpur quarters
 export const PROCEDURAL_BUILDINGS = [
   // 1. Mahadwar Bazaar & Temple Approach Corridor (traditional timber wadas & colorful shops)
-  { id: 'b_baz_1', x: -14, y: 3.0, z: 10, width: 8, height: 6.5, depth: 8, color: '#f59e0b', type: 'bazaar', label: 'Pedha & Prasad Stall' },
-  { id: 'b_baz_2', x: -14, y: 3.2, z: 20, width: 8, height: 7.0, depth: 8, color: '#ea580c', type: 'bazaar', label: 'Tulsi Mala & Kumkum' },
-  { id: 'b_baz_3', x: -14, y: 3.0, z: 30, width: 8, height: 6.5, depth: 8, color: '#d97706', type: 'bazaar', label: 'Brass Aarti Store' },
-  { id: 'b_baz_4', x: 12, y: 3.0, z: 10, width: 8, height: 6.5, depth: 8, color: '#b45309', type: 'bazaar', label: 'Warkari Pakhawaj Store' },
-  { id: 'b_baz_5', x: 12, y: 3.2, z: 20, width: 8, height: 7.0, depth: 8, color: '#f59e0b', type: 'bazaar', label: 'Sant Charitra Book Stall' },
-  { id: 'b_baz_6', x: 12, y: 3.0, z: 30, width: 8, height: 6.5, depth: 8, color: '#ea580c', type: 'bazaar', label: 'Gopichandan & Tilak' },
-  { id: 'b_baz_7', x: -26, y: 3.5, z: 14, width: 9, height: 7.5, depth: 10, color: '#d97706', type: 'bazaar', label: 'Pandharpuri Bukka & Abir' },
-  { id: 'b_baz_8', x: -26, y: 3.5, z: 26, width: 9, height: 7.5, depth: 10, color: '#c2410c', type: 'bazaar', label: 'Warkari Taalam & Chipli' },
-  { id: 'b_baz_9', x: 18, y: 3.2, z: 22, width: 9, height: 6.8, depth: 9, color: '#b45309', type: 'bazaar', label: 'Puja Samagri Bhandar' },
-  { id: 'b_baz_10', x: 18, y: 3.0, z: 32, width: 9, height: 6.5, depth: 9, color: '#f59e0b', type: 'bazaar', label: 'Dhvaj & Pataka Kendra' },
+  // North row of bazaar shops along Mahadwar Road
+  { id: 'b_baz_1', x: -14, y: 2.8, z: 7.5, width: 6.2, height: 5.6, depth: 5.5, color: '#f59e0b', type: 'bazaar', label: 'Pedha & Prasad Stall' },
+  { id: 'b_baz_2', x: -22, y: 2.8, z: 7.5, width: 6.2, height: 5.8, depth: 5.5, color: '#ea580c', type: 'bazaar', label: 'Tulsi Mala & Kumkum' },
+  { id: 'b_baz_3', x: -30, y: 2.8, z: 7.5, width: 6.2, height: 5.6, depth: 5.5, color: '#d97706', type: 'bazaar', label: 'Brass Aarti Store' },
+  // South row of bazaar shops along Mahadwar Road
+  { id: 'b_baz_7', x: -22, y: 2.8, z: 33.5, width: 6.2, height: 5.8, depth: 5.5, color: '#d97706', type: 'bazaar', label: 'Pandharpuri Bukka & Abir' },
+  { id: 'b_baz_8', x: -30, y: 2.8, z: 33.5, width: 6.2, height: 5.8, depth: 5.5, color: '#c2410c', type: 'bazaar', label: 'Warkari Taalam & Chipli' },
+  // East side shops along riverway
+  { id: 'b_baz_4', x: 26, y: 2.8, z: -14, width: 6.5, height: 5.6, depth: 5.5, color: '#b45309', type: 'bazaar', label: 'Warkari Pakhawaj Store' },
+  { id: 'b_baz_5', x: 36, y: 2.8, z: -14, width: 6.5, height: 5.8, depth: 5.5, color: '#f59e0b', type: 'bazaar', label: 'Sant Charitra Book Stall' },
+  { id: 'b_baz_6', x: 46, y: 2.8, z: -14, width: 6.5, height: 5.6, depth: 5.5, color: '#ea580c', type: 'bazaar', label: 'Gopichandan & Tilak' },
+  { id: 'b_baz_9', x: 28, y: 2.8, z: 22, width: 6.5, height: 5.6, depth: 5.5, color: '#b45309', type: 'bazaar', label: 'Puja Samagri Bhandar' },
+  { id: 'b_baz_10', x: 40, y: 2.8, z: 22, width: 6.5, height: 5.6, depth: 5.5, color: '#f59e0b', type: 'bazaar', label: 'Dhvaj & Pataka Kendra' },
 
   // 2. Navi Peth & Shivaji Chowk Wadas (Historic Maratha era 2 to 4-story timber wadas)
-  { id: 'b_wada_1', x: -38, y: 4.8, z: 8, width: 13, height: 9.6, depth: 14, color: '#d4c5a9', type: 'wada', label: 'Peshwe Wada Heritage' },
-  { id: 'b_wada_2', x: -38, y: 4.2, z: 26, width: 12, height: 8.4, depth: 13, color: '#8c857b', type: 'wada', label: 'Kulkarni Wada' },
-  { id: 'b_wada_3', x: -70, y: 5.5, z: -8, width: 18, height: 11.0, depth: 16, color: '#e2dcce', type: 'civic', label: 'Pandharpur Nagar Parishad' },
-  { id: 'b_wada_4', x: -70, y: 4.5, z: 14, width: 14, height: 9.0, depth: 14, color: '#c49272', type: 'wada', label: 'Joshi Wada' },
-  { id: 'b_wada_5', x: -48, y: 4.2, z: -22, width: 12, height: 8.5, depth: 14, color: '#d6d3d1', type: 'wada', label: 'Bhave Wada' },
-  { id: 'b_wada_6', x: -32, y: 4.0, z: -14, width: 11, height: 8.0, depth: 12, color: '#e8cfb0', type: 'wada', label: 'Badve Heritage Wada' },
-  { id: 'b_wada_7', x: -50, y: 4.5, z: 28, width: 13, height: 9.0, depth: 13, color: '#b8a892', type: 'wada', label: 'Deshmukh Wada' },
-  { id: 'b_wada_8', x: -62, y: 4.8, z: 32, width: 12, height: 9.6, depth: 12, color: '#d4c5a9', type: 'wada', label: 'Shinde Wada' },
-  { id: 'b_wada_9', x: -38, y: 4.0, z: -35, width: 12, height: 8.0, depth: 13, color: '#c49272', type: 'wada', label: 'Mohite Wada' },
+  { id: 'b_wada_1', x: -44, y: 4.4, z: -16, width: 10, height: 8.8, depth: 10, color: '#d4c5a9', type: 'wada', label: 'Peshwe Wada Heritage' },
+  { id: 'b_wada_2', x: -44, y: 4.1, z: 38, width: 10, height: 8.2, depth: 10, color: '#8c857b', type: 'wada', label: 'Kulkarni Wada' },
+  { id: 'b_wada_3', x: -86, y: 5.2, z: -10, width: 15, height: 10.5, depth: 14, color: '#e2dcce', type: 'civic', label: 'Pandharpur Nagar Parishad' },
+  { id: 'b_wada_4', x: -84, y: 4.2, z: 20, width: 11, height: 8.5, depth: 10, color: '#c49272', type: 'wada', label: 'Joshi Wada' },
+  { id: 'b_wada_5', x: -62, y: 4.1, z: -32, width: 10, height: 8.2, depth: 10, color: '#d6d3d1', type: 'wada', label: 'Bhave Wada' },
+  { id: 'b_wada_6', x: -28, y: 3.9, z: -32, width: 10, height: 7.8, depth: 9, color: '#e8cfb0', type: 'wada', label: 'Badve Heritage Wada' },
+  { id: 'b_wada_7', x: -62, y: 4.2, z: 46, width: 11, height: 8.4, depth: 10, color: '#b8a892', type: 'wada', label: 'Deshmukh Wada' },
+  { id: 'b_wada_8', x: -78, y: 4.4, z: 42, width: 10, height: 8.8, depth: 10, color: '#d4c5a9', type: 'wada', label: 'Shinde Wada' },
+  { id: 'b_wada_9', x: -46, y: 3.9, z: -44, width: 10, height: 7.8, depth: 10, color: '#c49272', type: 'wada', label: 'Mohite Wada' },
 
   // 3. Kasba Peth Historic Enclave (North of Mandir)
-  { id: 'b_kasba_1', x: -16, y: 4.0, z: -40, width: 12, height: 8.0, depth: 12, color: '#e8cfb0', type: 'wada', label: 'Kasba Peth Wada North' },
-  { id: 'b_kasba_2', x: -16, y: 4.2, z: -56, width: 13, height: 8.5, depth: 13, color: '#d4c5a9', type: 'wada', label: 'Guruswamiji Wada' },
-  { id: 'b_kasba_3', x: 6, y: 4.0, z: -45, width: 12, height: 8.0, depth: 12, color: '#8c857b', type: 'wada', label: 'Sant Vani Bhavan' },
-  { id: 'b_kasba_4', x: 6, y: 4.5, z: -60, width: 14, height: 9.0, depth: 13, color: '#d6d3d1', type: 'wada', label: 'Haripath Mandir Wada' },
-  { id: 'b_kasba_5', x: -32, y: 4.2, z: -46, width: 12, height: 8.5, depth: 13, color: '#c49272', type: 'wada' },
+  { id: 'b_kasba_1', x: -18, y: 3.9, z: -40, width: 10, height: 7.8, depth: 9, color: '#e8cfb0', type: 'wada', label: 'Kasba Peth Wada North' },
+  { id: 'b_kasba_2', x: -18, y: 4.0, z: -58, width: 10, height: 8.0, depth: 9, color: '#d4c5a9', type: 'wada', label: 'Guruswamiji Wada' },
+  { id: 'b_kasba_3', x: 14, y: 3.9, z: -42, width: 10, height: 7.8, depth: 9, color: '#8c857b', type: 'wada', label: 'Sant Vani Bhavan' },
+  { id: 'b_kasba_4', x: 14, y: 4.2, z: -60, width: 11, height: 8.4, depth: 10, color: '#d6d3d1', type: 'wada', label: 'Haripath Mandir Wada' },
+  { id: 'b_kasba_5', x: -36, y: 4.0, z: -48, width: 10, height: 8.0, depth: 10, color: '#c49272', type: 'wada' },
 
   // 4. Bhakta Niwas & Pilgrim Dharamshala District
-  { id: 'b_lodge_1', x: -60, y: 7.0, z: 75, width: 26, height: 14.0, depth: 22, color: '#e0e7ff', type: 'lodging', label: 'Shri Gajanan Maharaj Bhakta Niwas' },
-  { id: 'b_lodge_2', x: -60, y: 5.5, z: 106, width: 22, height: 11.0, depth: 18, color: '#cbd5e1', type: 'lodging', label: 'Annachhatra Dining Hall' },
-  { id: 'b_lodge_3', x: -35, y: 5.0, z: 90, width: 18, height: 10.0, depth: 18, color: '#f1f5f9', type: 'lodging', label: 'Warkari Bhavan Wing B' },
-  { id: 'b_lodge_4', x: -85, y: 6.0, z: 85, width: 20, height: 12.0, depth: 20, color: '#e2e8f0', type: 'lodging', label: 'Solapur Zilla Yatri Niwas' },
-  { id: 'b_lodge_5', x: -85, y: 5.2, z: 110, width: 22, height: 10.5, depth: 18, color: '#dbeafe', type: 'lodging', label: 'Sai Yatri Niwas' },
-  { id: 'b_lodge_6', x: -40, y: 5.0, z: 110, width: 16, height: 10.0, depth: 16, color: '#e0e7ff', type: 'lodging', label: 'Sant Namdev Vishram Gruha' },
+  { id: 'b_lodge_1', x: -62, y: 6.5, z: 74, width: 22, height: 13.0, depth: 18, color: '#e0e7ff', type: 'lodging', label: 'Shri Gajanan Maharaj Bhakta Niwas' },
+  { id: 'b_lodge_2', x: -62, y: 5.2, z: 106, width: 18, height: 10.5, depth: 16, color: '#cbd5e1', type: 'lodging', label: 'Annachhatra Dining Hall' },
+  { id: 'b_lodge_3', x: -36, y: 4.8, z: 92, width: 15, height: 9.5, depth: 15, color: '#f1f5f9', type: 'lodging', label: 'Warkari Bhavan Wing B' },
+  { id: 'b_lodge_4', x: -88, y: 5.5, z: 82, width: 18, height: 11.0, depth: 16, color: '#e2e8f0', type: 'lodging', label: 'Solapur Zilla Yatri Niwas' },
+  { id: 'b_lodge_5', x: -88, y: 5.0, z: 108, width: 18, height: 10.0, depth: 16, color: '#dbeafe', type: 'lodging', label: 'Sai Yatri Niwas' },
+  { id: 'b_lodge_6', x: -36, y: 4.8, z: 114, width: 14, height: 9.5, depth: 14, color: '#e0e7ff', type: 'lodging', label: 'Sant Namdev Vishram Gruha' },
 
   // 5. North Pradakshina Mathas & Ashrams
-  { id: 'b_math_1', x: 55, y: 4.8, z: -65, width: 16, height: 9.6, depth: 18, color: '#fef3c7', type: 'math', label: 'Chaitanya Math Ashram' },
-  { id: 'b_math_2', x: -30, y: 4.5, z: -65, width: 18, height: 9.0, depth: 16, color: '#fed7aa', type: 'math', label: 'Tanpure Maharaj Ashram' },
-  { id: 'b_math_3', x: 25, y: 4.2, z: -55, width: 14, height: 8.4, depth: 14, color: '#fde68a', type: 'math', label: 'Sant Eknath Prasadalaya' },
-  { id: 'b_math_4', x: 75, y: 4.5, z: -85, width: 15, height: 9.0, depth: 16, color: '#fef9c3', type: 'math', label: 'Tukaram Bhavan Ashram' },
-  { id: 'b_math_5', x: 45, y: 4.0, z: -90, width: 14, height: 8.0, depth: 14, color: '#fed7aa', type: 'math', label: 'Jnaneshwar Math' },
-  { id: 'b_math_6', x: 15, y: 4.0, z: -80, width: 13, height: 8.0, depth: 13, color: '#fef3c7', type: 'math' },
+  { id: 'b_math_1', x: 55, y: 4.5, z: -62, width: 13, height: 9.0, depth: 13, color: '#fef3c7', type: 'math', label: 'Chaitanya Math Ashram' },
+  { id: 'b_math_2', x: -32, y: 4.2, z: -68, width: 14, height: 8.5, depth: 13, color: '#fed7aa', type: 'math', label: 'Tanpure Maharaj Ashram' },
+  { id: 'b_math_3', x: 25, y: 4.0, z: -55, width: 11, height: 8.0, depth: 11, color: '#fde68a', type: 'math', label: 'Sant Eknath Prasadalaya' },
+  { id: 'b_math_4', x: 75, y: 4.2, z: -85, width: 13, height: 8.5, depth: 13, color: '#fef9c3', type: 'math', label: 'Tukaram Bhavan Ashram' },
+  { id: 'b_math_5', x: 45, y: 3.8, z: -90, width: 12, height: 7.6, depth: 12, color: '#fed7aa', type: 'math', label: 'Jnaneshwar Math' },
+  { id: 'b_math_6', x: 15, y: 3.8, z: -80, width: 11, height: 7.6, depth: 11, color: '#fef3c7', type: 'math' },
 
   // 6. ISKCON Temple Campus & Riverside Goshala
-  { id: 'b_iskcon_1', x: 95, y: 8.5, z: -120, width: 26, height: 17.0, depth: 30, color: '#ffffff', type: 'temple', label: 'ISKCON Sanctum' },
-  { id: 'b_iskcon_goshala', x: 112, y: 4.0, z: -145, width: 22, height: 8.0, depth: 18, color: '#d1fae5', type: 'civic', label: 'Goshala Sanctuary' },
-  { id: 'b_iskcon_guest', x: 75, y: 5.5, z: -130, width: 18, height: 11.0, depth: 18, color: '#f8fafc', type: 'lodging', label: 'ISKCON Atithi Bhavan' },
+  { id: 'b_iskcon_1', x: 95, y: 8.0, z: -120, width: 24, height: 16.0, depth: 26, color: '#ffffff', type: 'temple', label: 'ISKCON Sanctum' },
+  { id: 'b_iskcon_goshala', x: 112, y: 3.8, z: -145, width: 20, height: 7.6, depth: 16, color: '#d1fae5', type: 'civic', label: 'Goshala Sanctuary' },
+  { id: 'b_iskcon_guest', x: 75, y: 5.2, z: -130, width: 16, height: 10.5, depth: 16, color: '#f8fafc', type: 'lodging', label: 'ISKCON Atithi Bhavan' },
 
   // 7. Western Station Road & Transit Quarter
-  { id: 'b_rail_station', x: -170, y: 6.5, z: 65, width: 34, height: 13.0, depth: 20, color: '#cbd5e1', type: 'transport', label: 'Pandharpur Station Concourse' },
-  { id: 'b_rail_shed', x: -170, y: 4.5, z: 92, width: 45, height: 9.0, depth: 14, color: '#94a3b8', type: 'transport', label: 'Platform Shelter' },
-  { id: 'b_bus_depot', x: -100, y: 5.5, z: 48, width: 28, height: 11.0, depth: 22, color: '#94a3b8', type: 'transport', label: 'MSRTC Bus Depot Platform' },
-  { id: 'b_bus_hotel', x: -100, y: 5.2, z: 26, width: 18, height: 10.5, depth: 16, color: '#e2e8f0', type: 'lodging', label: 'Yatri Niwas Station Rd' },
-  { id: 'b_rail_shops_1', x: -145, y: 3.5, z: 52, width: 14, height: 7.0, depth: 11, color: '#f59e0b', type: 'bazaar', label: 'Station Tea & Bhojnalay' },
-  { id: 'b_rail_shops_2', x: -145, y: 3.5, z: 28, width: 14, height: 7.0, depth: 11, color: '#d97706', type: 'bazaar', label: 'Travel Accessories' },
+  { id: 'b_rail_station', x: -170, y: 6.0, z: 65, width: 30, height: 12.0, depth: 18, color: '#cbd5e1', type: 'transport', label: 'Pandharpur Station Concourse' },
+  { id: 'b_rail_shed', x: -170, y: 4.2, z: 92, width: 40, height: 8.4, depth: 12, color: '#94a3b8', type: 'transport', label: 'Platform Shelter' },
+  { id: 'b_bus_depot', x: -100, y: 5.2, z: 48, width: 25, height: 10.5, depth: 20, color: '#94a3b8', type: 'transport', label: 'MSRTC Bus Depot Platform' },
+  { id: 'b_bus_hotel', x: -100, y: 5.0, z: 24, width: 16, height: 10.0, depth: 14, color: '#e2e8f0', type: 'lodging', label: 'Yatri Niwas Station Rd' },
+  { id: 'b_rail_shops_1', x: -145, y: 3.2, z: 52, width: 12, height: 6.5, depth: 10, color: '#f59e0b', type: 'bazaar', label: 'Station Tea & Bhojnalay' },
+  { id: 'b_rail_shops_2', x: -145, y: 3.2, z: 28, width: 12, height: 6.5, depth: 10, color: '#d97706', type: 'bazaar', label: 'Travel Accessories' },
 
   // 8. Savarkar Chowk & West Arterial Commercial
-  { id: 'b_sav_1', x: -120, y: 4.8, z: -12, width: 14, height: 9.6, depth: 14, color: '#d4c5a9', type: 'wada', label: 'Savarkar Chowk Trade Centre' },
-  { id: 'b_sav_2', x: -120, y: 4.5, z: -48, width: 15, height: 9.0, depth: 14, color: '#8c857b', type: 'wada', label: 'West Grain Market' },
-  { id: 'b_sav_3', x: -140, y: 4.0, z: -25, width: 13, height: 8.0, depth: 13, color: '#c49272', type: 'wada' },
+  { id: 'b_sav_1', x: -120, y: 4.5, z: -10, width: 12, height: 9.0, depth: 12, color: '#d4c5a9', type: 'wada', label: 'Savarkar Chowk Trade Centre' },
+  { id: 'b_sav_2', x: -120, y: 4.2, z: -50, width: 13, height: 8.5, depth: 12, color: '#8c857b', type: 'wada', label: 'West Grain Market' },
+  { id: 'b_sav_3', x: -142, y: 3.8, z: -25, width: 11, height: 7.6, depth: 11, color: '#c49272', type: 'wada' },
 
   // 9. Eastern Riverfront Promenade Wadas (Facing Chandrabhaga)
-  { id: 'b_riv_1', x: 74, y: 4.8, z: -12, width: 14, height: 9.6, depth: 15, color: '#e8cfb0', type: 'wada', label: 'Ghatfront Wada North' },
-  { id: 'b_riv_2', x: 74, y: 4.2, z: 15, width: 13, height: 8.4, depth: 14, color: '#d4c5a9', type: 'wada', label: 'Ghatfront Wada South' },
-  { id: 'b_riv_3', x: 70, y: 4.2, z: 38, width: 14, height: 8.4, depth: 14, color: '#c49272', type: 'wada', label: 'Udhav Ghat Wada' },
-  { id: 'b_riv_4', x: 74, y: 4.8, z: -35, width: 13, height: 9.6, depth: 14, color: '#8c857b', type: 'wada', label: 'Kumbhar Ghat Wada' },
-  { id: 'b_riv_5', x: 74, y: 4.5, z: -58, width: 14, height: 9.0, depth: 14, color: '#d6d3d1', type: 'wada', label: 'Vipra Ghat Wada' },
-  { id: 'b_riv_6', x: 68, y: 4.0, z: 62, width: 13, height: 8.0, depth: 13, color: '#e8cfb0', type: 'wada' },
+  { id: 'b_riv_1', x: 66, y: 4.5, z: -15, width: 11, height: 9.0, depth: 11, color: '#e8cfb0', type: 'wada', label: 'Ghatfront Wada North' },
+  { id: 'b_riv_2', x: 66, y: 4.0, z: 18, width: 11, height: 8.0, depth: 11, color: '#d4c5a9', type: 'wada', label: 'Ghatfront Wada South' },
+  { id: 'b_riv_3', x: 66, y: 4.0, z: 42, width: 11, height: 8.0, depth: 11, color: '#c49272', type: 'wada', label: 'Udhav Ghat Wada' },
+  { id: 'b_riv_4', x: 66, y: 4.5, z: -38, width: 11, height: 9.0, depth: 11, color: '#8c857b', type: 'wada', label: 'Kumbhar Ghat Wada' },
+  { id: 'b_riv_5', x: 66, y: 4.2, z: -64, width: 11, height: 8.5, depth: 11, color: '#d6d3d1', type: 'wada', label: 'Vipra Ghat Wada' },
+  { id: 'b_riv_6', x: 66, y: 3.8, z: 66, width: 11, height: 7.6, depth: 11, color: '#e8cfb0', type: 'wada' },
 
   // 10. South Pradakshina Path Enclave
-  { id: 'b_sth_1', x: 42, y: 4.5, z: 38, width: 13, height: 9.0, depth: 13, color: '#d4c5a9', type: 'wada', label: 'South Pradakshina Wada' },
-  { id: 'b_sth_2', x: 42, y: 4.2, z: 78, width: 14, height: 8.4, depth: 14, color: '#c49272', type: 'wada' },
-  { id: 'b_sth_3', x: 22, y: 4.0, z: 62, width: 12, height: 8.0, depth: 12, color: '#8c857b', type: 'wada' },
-  { id: 'b_sth_4', x: -14, y: 4.2, z: 52, width: 13, height: 8.5, depth: 13, color: '#e8cfb0', type: 'wada', label: 'Chokhamela Marg Wada' },
-  { id: 'b_sth_5', x: -14, y: 4.0, z: 72, width: 12, height: 8.0, depth: 13, color: '#d6d3d1', type: 'wada' },
-  { id: 'b_sth_6', x: 45, y: 4.5, z: 120, width: 16, height: 9.0, depth: 15, color: '#fed7aa', type: 'math', label: 'Gopalpur Road Math' }
+  { id: 'b_sth_1', x: 44, y: 4.2, z: 42, width: 11, height: 8.5, depth: 11, color: '#d4c5a9', type: 'wada', label: 'South Pradakshina Wada' },
+  { id: 'b_sth_2', x: 44, y: 4.0, z: 80, width: 11, height: 8.0, depth: 11, color: '#c49272', type: 'wada' },
+  { id: 'b_sth_3', x: 20, y: 3.8, z: 65, width: 10, height: 7.6, depth: 10, color: '#8c857b', type: 'wada' },
+  { id: 'b_sth_4', x: -12, y: 4.0, z: 55, width: 11, height: 8.0, depth: 11, color: '#e8cfb0', type: 'wada', label: 'Chokhamela Marg Wada' },
+  { id: 'b_sth_5', x: -12, y: 3.8, z: 78, width: 10, height: 7.6, depth: 10, color: '#d6d3d1', type: 'wada' },
+  { id: 'b_sth_6', x: 45, y: 4.2, z: 120, width: 14, height: 8.5, depth: 13, color: '#fed7aa', type: 'math', label: 'Gopalpur Road Math' }
 ];
 
 // Holy flags (Bhagva Dhwaja) positioned at major sacred nodes
