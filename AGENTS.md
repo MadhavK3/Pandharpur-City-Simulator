@@ -29,6 +29,17 @@ This repository couples a 3D cultural simulation of the sacred pilgrimage city o
 - Right-side panels (Landmark Details, Algorithm Lab, Mission Panel, Network Editor) must remain mutually exclusive in [simulationStore.js](file:///d:/proj/Pandharpur-City-Simulator/src/store/simulationStore.js). Opening one panel must close all other right drawers.
 - The default initial state must start clean with sidebars collapsed (`isSidebarOpen: false`, `selectedLandmarkId: null`).
 
+### 2.4. Procedural Urban Layout and Building Geometry
+- **Road Clearance Footprint**: Street setbacks must account for total road footprint, calculated as:
+  `Footprint = RoadWidth + (CurbWidth * 2) + (SidewalkWidth * 2) + MinimumPedestrianSetback`
+  For an 8.8m road corridor, building facades must maintain a minimum setback of at least 3m to 4m beyond the curb edge.
+- **Wall-Aligned Roof Geometries**: Never use 4-sided `coneGeometry` for rectangular building roofs. A 4-sided cone rotates the base 45 degrees relative to building walls, protruding diagonal corners into roads and neighboring structures. Use custom rectangular hip roofs (`BufferGeometry`) with eaves strictly clamped to <= 0.4m.
+- **Clearance Around Plazas and Sanctums**: Major landmark sanctums, courtyards, and chowk circles must remain completely free of procedural secondary structures and street clutter.
+
+### 2.5. Header and Navigation Containment
+- **Zero-Wrap Brand Lockups**: Top headers with fixed height must enforce `white-space: nowrap` and `flex-shrink: 0` on brand titles and subtitles to prevent multi-line vertical wrapping and border clipping.
+- **Header Overflow Containment**: Top navigation containers must specify `overflow-x: auto` and `overflow-y: hidden` with compact button styles (`.topbar-btn`) to ensure controls remain accessible across standard and narrow viewports without vertical distortion.
+
 ---
 
 ## 3. Skills and Documentation References

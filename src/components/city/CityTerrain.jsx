@@ -11,21 +11,21 @@ export function CityTerrain() {
     // 1. Shady Neem & Gulmohar street trees
     const shade = [
       // Mahadwar & Mandir approach
-      { x: -32, z: 2, scale: 1.1 },
+      { x: -32, z: -8, scale: 1.05 },
       { x: -28, z: 38, scale: 0.95 },
       { x: 26, z: 36, scale: 1.0 },
       { x: 30, z: -8, scale: 1.05 },
       { x: 32, z: -30, scale: 0.9 },
       // Navi Peth lanes
-      { x: -50, z: -8, scale: 1.0 },
-      { x: -62, z: 12, scale: 1.15 },
-      { x: -52, z: 45, scale: 1.0 },
+      { x: -50, z: -14, scale: 1.0 },
+      { x: -66, z: 10, scale: 1.1 },
+      { x: -52, z: 54, scale: 1.0 },
       { x: -75, z: 30, scale: 0.9 },
       // Kasba Peth & North Pradakshina
       { x: -25, z: -35, scale: 1.1 },
       { x: 0, z: -48, scale: 1.0 },
       { x: 20, z: -68, scale: 1.05 },
-      { x: -45, z: -55, scale: 0.95 },
+      { x: -48, z: -62, scale: 0.95 },
       { x: 60, z: -45, scale: 1.1 },
       // Bhakta Niwas courtyards
       { x: -50, z: 92, scale: 1.1 },
@@ -45,11 +45,11 @@ export function CityTerrain() {
 
     // 2. Giant Sacred Banyan & Peepal trees (wide canopy)
     const banyans = [
-      { x: -34, z: -10, scale: 1.4 },  // West Mandir courtyard
-      { x: 28, z: 8, scale: 1.35 },    // East riverside courtyard
-      { x: -80, z: 5, scale: 1.3 },    // Shivaji Chowk perimeter
-      { x: 70, z: 18, scale: 1.25 },   // Chandrabhaga upper ghat terrace
-      { x: -110, z: 35, scale: 1.3 }   // Bus Stand forecourt
+      { x: -34, z: -10, scale: 1.35 },  // West Mandir courtyard
+      { x: 34, z: 12, scale: 1.3 },     // East riverside courtyard
+      { x: -80, z: 5, scale: 1.3 },     // Shivaji Chowk perimeter
+      { x: 76, z: 26, scale: 1.25 },    // Chandrabhaga upper ghat terrace
+      { x: -110, z: 35, scale: 1.3 }    // Bus Stand forecourt
     ];
 
     // 3. Coconut Palm Trees along riverbank & Padmavati Lake
