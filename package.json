@@ -8,9 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "blender:watch": "node scripts/watch_blender.js",
-    "blender:export": "node scripts/export_all.js"
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
