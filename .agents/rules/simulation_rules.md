@@ -2,7 +2,7 @@
 
 ## 1. Zero-Tolerance Style Invariants
 - Strictly no emojis in code, documentation, UI labels, or messages.
-- Strictly no em-dashes (—) or en-dashes (–). Use standard hyphens (-).
+- Strictly no em-dashes (-) or en-dashes (-). Use standard hyphens (-).
 - Format all terminal commands for Windows PowerShell.
 
 ## 2. 3D WebGL Scene & Camera Rules
