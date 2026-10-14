@@ -109,14 +109,6 @@ export const useSimulationStore = create((set, get) => ({
   showHeatmap: false,
   bloomEnabled: true,
 
-  // --- Blender Live Sync ---
-  blenderSyncEnabled: true,
-  isBlenderModalOpen: false,
-  activeBlenderOverrides: {
-    VITTHAL_RUKMINI_MANDIR: true,
-    custom_scene: true
-  },
-
   // --- Guided Tour & Ground Navigation ---
   guidedTourActive: false,
   guidedTourIndex: 0,
@@ -268,16 +260,6 @@ export const useSimulationStore = create((set, get) => ({
     ...(open ? { selectedLandmarkId: null, isAlgorithmLabOpen: false, isMissionPanelOpen: false } : {})
   }),
   setWelcomeModalOpen: (open) => set({ welcomeModalOpen: open }),
-
-  // --- Blender Live Sync Actions ---
-  setBlenderSyncEnabled: (enabled) => set({ blenderSyncEnabled: enabled }),
-  setBlenderModalOpen: (open) => set({ isBlenderModalOpen: open }),
-  toggleBlenderOverride: (key) => set(state => ({
-    activeBlenderOverrides: {
-      ...state.activeBlenderOverrides,
-      [key]: !state.activeBlenderOverrides[key]
-    }
-  })),
 
   selectLandmark: (landmarkId) => {
     const landmark = getLandmarkById(landmarkId);
