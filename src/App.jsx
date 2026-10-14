@@ -7,6 +7,7 @@ import { LandmarkPanel } from './components/landmarks/LandmarkPanel.jsx';
 import { AlgorithmLab } from './components/algorithms/AlgorithmLab.jsx';
 import { MissionPanel } from './components/missions/MissionPanel.jsx';
 import { NetworkEditor } from './components/network/NetworkEditor.jsx';
+import { GroundControlsUI } from './components/city/GroundControlsUI.jsx';
 import { WelcomeScreen } from './screens/WelcomeScreen.jsx';
 import { useSimulationStore } from './store/simulationStore.js';
 
@@ -31,6 +32,7 @@ export function App() {
       <AlgorithmLab />
       <MissionPanel />
       <NetworkEditor />
+      <GroundControlsUI />
       <WelcomeScreen />
     </div>
   );

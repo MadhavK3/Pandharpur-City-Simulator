@@ -103,6 +103,14 @@ export function RoadNetwork3D() {
         );
       })}
 
+      {/* Seamless Road Intersection Junction Fillets */}
+      {PANDHARPUR_GRAPH_DATA.nodes.filter(n => n.type === 'junction' || n.type === 'transport').map(j => (
+        <mesh key={`junction_fillet_${j.id}`} position={[j.x, 0.04, j.z]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+          <circleGeometry args={[5.2, 24]} />
+          <meshStandardMaterial color="#18181b" roughness={0.88} metalness={0.08} />
+        </mesh>
+      ))}
+
       {/* Decorative Traditional Yellow-Black Auto Rickshaws parked near Shivaji Chowk */}
       {[
         { x: -50, z: -8, rot: 0.4 },

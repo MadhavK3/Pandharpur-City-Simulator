@@ -13,7 +13,10 @@ import {
   Trophy,
   ShieldAlert,
   Info,
-  Navigation
+  Navigation,
+  Footprints,
+  MapPin,
+  Sparkles
 } from 'lucide-react';
 
 export function TopNavigation() {
@@ -26,6 +29,8 @@ export function TopNavigation() {
   const toggleGraphOverlay = useSimulationStore(state => state.toggleGraphOverlay);
   const showCrowdParticles = useSimulationStore(state => state.showCrowdParticles);
   const toggleCrowdParticles = useSimulationStore(state => state.toggleCrowdParticles);
+  const bloomEnabled = useSimulationStore(state => state.bloomEnabled);
+  const toggleBloom = useSimulationStore(state => state.toggleBloom);
 
   const isAlgorithmLabOpen = useSimulationStore(state => state.isAlgorithmLabOpen);
   const setAlgorithmLabOpen = useSimulationStore(state => state.setAlgorithmLabOpen);
@@ -159,6 +164,22 @@ export function TopNavigation() {
           </button>
           <button
             className="btn btn-icon"
+            style={{ background: cameraMode === 'ground' ? 'rgba(16, 185, 129, 0.2)' : 'transparent', color: cameraMode === 'ground' ? '#34d399' : '#94a3b8' }}
+            onClick={() => setCameraMode('ground')}
+            title="Ground-Level Pedestrian Walk (WASD / Touch)"
+          >
+            <Footprints size={15} />
+          </button>
+          <button
+            className="btn btn-icon"
+            style={{ background: cameraMode === 'guided_tour' ? 'rgba(245, 158, 11, 0.25)' : 'transparent', color: cameraMode === 'guided_tour' ? '#fbbf24' : '#94a3b8' }}
+            onClick={() => setCameraMode('guided_tour')}
+            title="Cinematic Pilgrimage Guided Tour"
+          >
+            <MapPin size={15} />
+          </button>
+          <button
+            className="btn btn-icon"
             style={{ background: cameraMode === 'flyover' ? 'rgba(16, 185, 129, 0.2)' : 'transparent', color: cameraMode === 'flyover' ? '#34d399' : '#94a3b8' }}
             onClick={() => setCameraMode('flyover')}
             title="Parikrama Flyover"
@@ -194,6 +215,20 @@ export function TopNavigation() {
         >
           <Users size={14} />
           <span>Crowd</span>
+        </button>
+
+        <button
+          className="btn"
+          style={{
+            background: bloomEnabled ? 'rgba(251, 191, 36, 0.15)' : 'rgba(255,255,255,0.05)',
+            borderColor: bloomEnabled ? '#fbbf24' : 'transparent',
+            color: bloomEnabled ? '#fbbf24' : '#94a3b8'
+          }}
+          onClick={toggleBloom}
+          title="Toggle Cinematic Divine Bloom and Atmosphere"
+        >
+          <Sparkles size={14} />
+          <span>Bloom</span>
         </button>
       </div>
 

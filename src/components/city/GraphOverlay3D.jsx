@@ -31,7 +31,9 @@ export function GraphOverlay3D() {
 
   return (
     <group name="graph_overlay_root">
-      {/* 1. GRAPH EDGES */}
+      {/* ============================================================== */}
+      {/* 1. GRAPH EDGES, LIGHT PIPES & BARRICADES                       */}
+      {/* ============================================================== */}
       {PANDHARPUR_GRAPH_DATA.edges.map(edge => {
         const u = nodeMap.get(edge.source);
         const v = nodeMap.get(edge.target);
@@ -42,7 +44,7 @@ export function GraphOverlay3D() {
         const isMstEdge = mstEdgeSet.has(edge.id);
         const isHovered = hoveredEdge === edge.id;
 
-        // Path segment check
+        // Active shortest / traversal path check
         let isPathEdge = false;
         if (currentStep.activeSubpath && currentStep.activeSubpath.length > 1) {
           for (let i = 0; i < currentStep.activeSubpath.length - 1; i++) {
@@ -57,33 +59,42 @@ export function GraphOverlay3D() {
 
         let edgeColor = '#475569';
         let edgeRadius = 0.22;
-        let opacity = 0.45;
+        let opacity = 0.4;
+        let emissiveIntensity = 0.0;
 
         if (isClosed) {
-          edgeColor = '#ef4444'; // Barricaded
+          edgeColor = '#ef4444';
           edgeRadius = 0.55;
           opacity = 0.95;
+          emissiveIntensity = 1.2;
         } else if (isCurrentEdge) {
           edgeColor = '#facc15';
-          edgeRadius = 0.55;
+          edgeRadius = 0.52;
           opacity = 1.0;
+          emissiveIntensity = 2.0;
         } else if (isPathEdge) {
-          edgeColor = '#10b981';
-          edgeRadius = 0.45;
-          opacity = 0.95;
+          edgeColor = '#10b981'; // Luminous emerald path
+          edgeRadius = 0.48;
+          opacity = 0.98;
+          emissiveIntensity = 1.8;
         } else if (isMstEdge) {
-          edgeColor = '#f59e0b';
-          edgeRadius = 0.38;
-          opacity = 0.9;
+          edgeColor = '#f59e0b'; // Luminous gold MST
+          edgeRadius = 0.42;
+          opacity = 0.95;
+          emissiveIntensity = 1.5;
+        } else if (visitedSet.has(edge.source) && visitedSet.has(edge.target)) {
+          edgeColor = '#06b6d4'; // Visited cyan conduit
+          edgeRadius = 0.28;
+          opacity = 0.85;
+          emissiveIntensity = 0.8;
         }
 
-        // Midpoint and orientation elevated cleanly above road
+        // Clean elevation slightly above roads
         const p1 = new THREE.Vector3(u.x, u.y + 0.65, u.z);
         const p2 = new THREE.Vector3(v.x, v.y + 0.65, v.z);
         const mid = p1.clone().add(p2).multiplyScalar(0.5);
         const dist = p1.distanceTo(p2);
 
-        // Cylinder rotation to align with vector
         const dir = p2.clone().sub(p1).normalize();
         const orientation = new THREE.Quaternion();
         const up = new THREE.Vector3(0, 1, 0);
@@ -102,51 +113,84 @@ export function GraphOverlay3D() {
             }}
             onPointerOut={() => setHoveredEdge(null)}
           >
-            {/* Cylinder mesh representing edge link */}
+            {/* Cylindrical Edge Conduit */}
             <mesh position={mid} quaternion={orientation}>
               <cylinderGeometry args={[edgeRadius, edgeRadius, dist, 8]} />
               <meshStandardMaterial
                 color={edgeColor}
-                emissive={isClosed ? '#ef4444' : isCurrentEdge ? '#f59e0b' : isPathEdge ? '#10b981' : '#000000'}
-                emissiveIntensity={isClosed || isCurrentEdge || isPathEdge ? 0.8 : 0}
+                emissive={edgeColor}
+                emissiveIntensity={emissiveIntensity}
                 transparent
                 opacity={opacity}
+                roughness={0.2}
               />
             </mesh>
 
-            {/* Red Barricade Sign if Closed */}
-            {isClosed && (
-              <Html position={[mid.x, mid.y + 1.2, mid.z]} center distanceFactor={70} zIndexRange={[0, 0]}>
-                <div style={{
-                  background: '#ef4444',
-                  color: '#ffffff',
-                  fontSize: '9px',
-                  fontWeight: '800',
-                  padding: '2px 6px',
-                  borderRadius: '4px',
-                  boxShadow: '0 0 10px rgba(239, 68, 68, 0.8)',
-                  whiteSpace: 'nowrap',
-                  cursor: 'pointer'
-                }}>
-                  BARRICADED
-                </div>
-              </Html>
+            {/* Glowing outer core for active shortest path */}
+            {isPathEdge && (
+              <mesh position={mid} quaternion={orientation}>
+                <cylinderGeometry args={[edgeRadius + 0.2, edgeRadius + 0.2, dist, 8]} />
+                <meshStandardMaterial
+                  color="#10b981"
+                  emissive="#34d399"
+                  emissiveIntensity={1.4}
+                  transparent
+                  opacity={0.35}
+                />
+              </mesh>
             )}
 
-            {/* Edge Info on Hover */}
+            {/* Red Barricade Hazard Crossbar if Edge is Closed */}
+            {isClosed && (
+              <group position={mid}>
+                <mesh position={[0, 0.9, 0]} rotation={[0, Math.atan2(dir.x, dir.z), 0]}>
+                  <boxGeometry args={[4.2, 0.45, 0.18]} />
+                  <meshStandardMaterial color="#ef4444" roughness={0.3} emissive="#b91c1c" emissiveIntensity={0.8} />
+                </mesh>
+                {/* Warning beacon lights */}
+                {[-1.8, 1.8].map((lx, li) => (
+                  <mesh key={`beacon_${li}`} position={[lx, 1.3, 0]}>
+                    <sphereGeometry args={[0.2, 8, 8]} />
+                    <meshStandardMaterial color="#fbbf24" emissive="#f59e0b" emissiveIntensity={2.5} />
+                  </mesh>
+                ))}
+                <Html position={[0, 1.8, 0]} center distanceFactor={70} zIndexRange={[0, 0]}>
+                  <div
+                    style={{
+                      background: '#ef4444',
+                      color: '#ffffff',
+                      fontSize: '9px',
+                      fontWeight: '800',
+                      padding: '2px 8px',
+                      borderRadius: '4px',
+                      boxShadow: '0 0 12px rgba(239, 68, 68, 0.9)',
+                      whiteSpace: 'nowrap',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    BARRICADED (Click to Reopen)
+                  </div>
+                </Html>
+              </group>
+            )}
+
+            {/* Edge Info Tooltip on Hover */}
             {isHovered && !isClosed && (
-              <Html position={[mid.x, mid.y + 1.0, mid.z]} center distanceFactor={70} zIndexRange={[0, 0]}>
-                <div style={{
-                  background: 'rgba(15, 23, 42, 0.9)',
-                  border: '1px solid #f59e0b',
-                  color: '#fbbf24',
-                  fontSize: '10px',
-                  padding: '3px 8px',
-                  borderRadius: '6px',
-                  whiteSpace: 'nowrap',
-                  pointerEvents: 'none'
-                }}>
-                  {edge.streetName} ({edge.distanceMeters}m)
+              <Html position={[mid.x, mid.y + 1.1, mid.z]} center distanceFactor={70} zIndexRange={[0, 0]}>
+                <div
+                  style={{
+                    background: 'rgba(15, 23, 42, 0.94)',
+                    border: '1px solid #f59e0b',
+                    color: '#fbbf24',
+                    fontSize: '10px',
+                    padding: '3px 8px',
+                    borderRadius: '6px',
+                    whiteSpace: 'nowrap',
+                    pointerEvents: 'none',
+                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.7)'
+                  }}
+                >
+                  {edge.streetName} ({edge.distanceMeters}m) | Click to Barricade
                 </div>
               </Html>
             )}
@@ -154,7 +198,9 @@ export function GraphOverlay3D() {
         );
       })}
 
-      {/* 2. GRAPH NODES */}
+      {/* ============================================================== */}
+      {/* 2. LUMINOUS GRAPH NODES WITH CONCENTRIC TARGET RINGS           */}
+      {/* ============================================================== */}
       {PANDHARPUR_GRAPH_DATA.nodes.map(node => {
         const isStart = node.id === startNode;
         const isEnd = node.id === endNode;
@@ -165,30 +211,46 @@ export function GraphOverlay3D() {
         const isPathNode = activeSubpathSet.has(node.id);
         const isHovered = hoveredNode === node.id;
 
-        let nodeColor = '#94a3b8';
-        let nodeSize = 0.85;
+        let nodeColor = '#64748b';
+        let nodeSize = 0.8;
+        let ringColor = null;
+        let emissiveIntensity = 0.2;
 
         if (isStart) {
-          nodeColor = '#10b981'; // Green
-          nodeSize = 1.4;
+          nodeColor = '#10b981'; // Neon Emerald
+          nodeSize = 1.35;
+          ringColor = '#10b981';
+          emissiveIntensity = 2.2;
         } else if (isEnd) {
-          nodeColor = '#f59e0b'; // Gold
-          nodeSize = 1.4;
-        } else if (isMultiStop) {
-          nodeColor = '#ec4899'; // Pink/Magenta
-          nodeSize = 1.2;
+          nodeColor = '#ef4444'; // Vivid Ruby
+          nodeSize = 1.35;
+          ringColor = '#ef4444';
+          emissiveIntensity = 2.2;
         } else if (isCurrentNode) {
-          nodeColor = '#facc15'; // Yellow
+          nodeColor = '#facc15'; // Brilliant Amber Yellow
           nodeSize = 1.25;
+          ringColor = '#facc15';
+          emissiveIntensity = 2.5;
         } else if (isPathNode) {
-          nodeColor = '#22c55e'; // Green
+          nodeColor = '#22c55e'; // Vibrant Green
           nodeSize = 1.05;
+          ringColor = '#10b981';
+          emissiveIntensity = 1.8;
+        } else if (isMultiStop) {
+          nodeColor = '#ec4899'; // Magenta Stop
+          nodeSize = 1.15;
+          ringColor = '#f472b6';
+          emissiveIntensity = 1.8;
         } else if (isFrontier) {
-          nodeColor = '#06b6d4'; // Cyan
+          nodeColor = '#2dd4bf'; // Turquoise Frontier
           nodeSize = 0.95;
+          ringColor = '#14b8a6';
+          emissiveIntensity = 1.5;
         } else if (isVisited) {
-          nodeColor = '#6366f1'; // Indigo
+          nodeColor = '#06b6d4'; // Cyan Visited
           nodeSize = 0.9;
+          ringColor = '#0284c7';
+          emissiveIntensity = 1.2;
         }
 
         return (
@@ -203,41 +265,87 @@ export function GraphOverlay3D() {
                 setStartNode(node.id);
               }
             }}
+            onContextMenu={(e) => {
+              e.stopPropagation();
+              if (e.nativeEvent?.preventDefault) e.nativeEvent.preventDefault();
+              setEndNode(node.id);
+            }}
             onPointerOver={(e) => {
               e.stopPropagation();
               setHoveredNode(node.id);
             }}
             onPointerOut={() => setHoveredNode(null)}
           >
-            {/* Sphere Mesh */}
+            {/* Central Node Sphere */}
             <mesh castShadow>
               <sphereGeometry args={[nodeSize, 16, 16]} />
               <meshStandardMaterial
                 color={nodeColor}
                 emissive={nodeColor}
-                emissiveIntensity={isStart || isEnd || isCurrentNode ? 0.9 : 0.4}
+                emissiveIntensity={emissiveIntensity}
                 metalness={0.2}
-                roughness={0.4}
+                roughness={0.3}
               />
             </mesh>
 
-            {/* Label on Hover or Key Nodes */}
+            {/* Outer Concentric Target Ring for Active Nodes */}
+            {ringColor && (
+              <mesh rotation={[-Math.PI / 2, 0, 0]}>
+                <ringGeometry args={[nodeSize + 0.3, nodeSize + 0.65, 32]} />
+                <meshBasicMaterial
+                  color={ringColor}
+                  side={THREE.DoubleSide}
+                  transparent
+                  opacity={0.85}
+                />
+              </mesh>
+            )}
+
+            {/* Second Outer Pulse Ring for Start & Goal */}
+            {(isStart || isEnd) && (
+              <mesh rotation={[-Math.PI / 2, 0, 0]}>
+                <ringGeometry args={[nodeSize + 0.85, nodeSize + 1.1, 32]} />
+                <meshBasicMaterial
+                  color={ringColor}
+                  side={THREE.DoubleSide}
+                  transparent
+                  opacity={0.5}
+                />
+              </mesh>
+            )}
+
+            {/* Label Tooltip on Hover or Key Nodes */}
             {(isHovered || isStart || isEnd || isMultiStop) && (
-              <Html position={[0, nodeSize + 0.8, 0]} center distanceFactor={60} zIndexRange={[0, 0]}>
-                <div style={{
-                  background: isStart ? 'rgba(16, 185, 129, 0.9)' : isEnd ? 'rgba(245, 158, 11, 0.9)' : 'rgba(15, 23, 42, 0.9)',
-                  color: isStart || isEnd ? '#090d16' : '#f8fafc',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  fontWeight: '700',
-                  fontSize: '10px',
-                  padding: '2px 6px',
-                  borderRadius: '4px',
-                  whiteSpace: 'nowrap',
-                  pointerEvents: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.5)'
-                }}>
-                  {isStart ? 'START: ' : isEnd ? 'GOAL: ' : isMultiStop ? 'STOP: ' : ''}
-                  {node.name}
+              <Html position={[0, nodeSize + 0.9, 0]} center distanceFactor={60} zIndexRange={[0, 0]}>
+                <div
+                  style={{
+                    background: isStart
+                      ? 'rgba(16, 185, 129, 0.94)'
+                      : isEnd
+                      ? 'rgba(239, 68, 68, 0.94)'
+                      : isMultiStop
+                      ? 'rgba(236, 72, 153, 0.94)'
+                      : 'rgba(15, 23, 42, 0.94)',
+                    color: isStart || isEnd ? '#090d16' : '#f8fafc',
+                    border: '1px solid rgba(255, 255, 255, 0.35)',
+                    fontWeight: '700',
+                    fontSize: '10px',
+                    padding: '3px 9px',
+                    borderRadius: '6px',
+                    whiteSpace: 'nowrap',
+                    pointerEvents: 'none',
+                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.7)'
+                  }}
+                >
+                  <div style={{ fontWeight: '800' }}>
+                    {isStart ? 'START: ' : isEnd ? 'GOAL: ' : isMultiStop ? 'STOP: ' : ''}
+                    {node.name}
+                  </div>
+                  {isHovered && !isStart && !isEnd && (
+                    <div style={{ fontSize: '8px', opacity: 0.85, marginTop: '2px' }}>
+                      Click: Set Start | Right-Click/Shift: Set Goal
+                    </div>
+                  )}
                 </div>
               </Html>
             )}
@@ -247,3 +355,5 @@ export function GraphOverlay3D() {
     </group>
   );
 }
+
+export default GraphOverlay3D;
