@@ -2,6 +2,157 @@ import React, { useMemo } from 'react';
 import * as THREE from 'three';
 import { getBasaltStoneTexture, getWaterNormalTexture } from '../../engine/rendering/textureUtils.js';
 
+// Realistic Organic Sacred Banyan / Peepal Tree with drop roots and layered foliage lobes
+function OrganicBanyanTree({ position, scale = 1 }) {
+  return (
+    <group position={position} scale={scale}>
+      {/* Central stout gnarled trunk */}
+      <mesh position={[0, 2.5, 0]} castShadow>
+        <cylinderGeometry args={[1.0, 1.6, 5.0, 8]} />
+        <meshStandardMaterial color="#352316" roughness={0.95} />
+      </mesh>
+
+      {/* Drop aerial roots (Prop roots) connecting branches to ground */}
+      {[
+        [-1.6, 0.4],
+        [1.5, -0.6],
+        [-0.5, 1.6],
+        [0.8, 1.4]
+      ].map(([rx, rz], rIdx) => (
+        <mesh key={`prop_root_${rIdx}`} position={[rx, 2.2, rz]} castShadow>
+          <cylinderGeometry args={[0.18, 0.28, 4.4, 6]} />
+          <meshStandardMaterial color="#2d1c11" roughness={0.96} />
+        </mesh>
+      ))}
+
+      {/* Main horizontal spreading branch boles */}
+      <mesh position={[0.8, 4.4, -0.4]} rotation={[0.3, 0.2, 0.7]} castShadow>
+        <cylinderGeometry args={[0.45, 0.7, 3.8, 6]} />
+        <meshStandardMaterial color="#352316" roughness={0.95} />
+      </mesh>
+      <mesh position={[-0.9, 4.2, 0.6]} rotation={[-0.4, 0.5, -0.6]} castShadow>
+        <cylinderGeometry args={[0.4, 0.65, 3.6, 6]} />
+        <meshStandardMaterial color="#352316" roughness={0.95} />
+      </mesh>
+
+      {/* Multi-lobed broad leafy canopy */}
+      <mesh position={[0, 6.4, 0]} castShadow>
+        <dodecahedronGeometry args={[4.4, 1]} />
+        <meshStandardMaterial color="#143e20" roughness={0.88} />
+      </mesh>
+      <mesh position={[2.0, 7.2, -1.2]} castShadow>
+        <dodecahedronGeometry args={[3.2, 1]} />
+        <meshStandardMaterial color="#1a4d28" roughness={0.86} />
+      </mesh>
+      <mesh position={[-1.8, 7.0, 1.4]} castShadow>
+        <dodecahedronGeometry args={[3.0, 1]} />
+        <meshStandardMaterial color="#164323" roughness={0.88} />
+      </mesh>
+      <mesh position={[0.4, 8.4, 0.6]} castShadow>
+        <dodecahedronGeometry args={[2.6, 1]} />
+        <meshStandardMaterial color="#215c32" roughness={0.85} />
+      </mesh>
+    </group>
+  );
+}
+
+// Realistic Organic Neem / Gulmohar Tree with branching crown and feathery canopy
+function OrganicNeemTree({ position, scale = 1 }) {
+  return (
+    <group position={position} scale={scale}>
+      {/* Curved organic trunk */}
+      <mesh position={[0, 2.2, 0]} rotation={[0.04, 0, 0.05]} castShadow>
+        <cylinderGeometry args={[0.32, 0.55, 4.4, 7]} />
+        <meshStandardMaterial color="#3a2414" roughness={0.92} />
+      </mesh>
+
+      {/* Branch forks */}
+      <mesh position={[0.6, 4.2, 0.3]} rotation={[0.4, 0, 0.5]} castShadow>
+        <cylinderGeometry args={[0.18, 0.3, 2.6, 6]} />
+        <meshStandardMaterial color="#3a2414" roughness={0.92} />
+      </mesh>
+      <mesh position={[-0.5, 4.0, -0.4]} rotation={[-0.3, 0.2, -0.45]} castShadow>
+        <cylinderGeometry args={[0.16, 0.28, 2.4, 6]} />
+        <meshStandardMaterial color="#3a2414" roughness={0.92} />
+      </mesh>
+
+      {/* Multi-cluster organic foliage lobes */}
+      <mesh position={[0, 5.6, 0]} castShadow>
+        <dodecahedronGeometry args={[2.6, 1]} />
+        <meshStandardMaterial color="#1b4d24" roughness={0.86} />
+      </mesh>
+      <mesh position={[1.2, 6.4, 0.5]} castShadow>
+        <dodecahedronGeometry args={[2.0, 1]} />
+        <meshStandardMaterial color="#22622f" roughness={0.84} />
+      </mesh>
+      <mesh position={[-1.0, 6.2, -0.6]} castShadow>
+        <dodecahedronGeometry args={[1.9, 1]} />
+        <meshStandardMaterial color="#194822" roughness={0.86} />
+      </mesh>
+      <mesh position={[0.2, 7.4, -0.2]} castShadow>
+        <dodecahedronGeometry args={[1.6, 1]} />
+        <meshStandardMaterial color="#297337" roughness={0.82} />
+      </mesh>
+    </group>
+  );
+}
+
+// Realistic Coconut Palm Tree with ringed trunk and radiating drooping fronds
+function OrganicPalmTree({ position, scale = 1 }) {
+  return (
+    <group position={position} scale={scale}>
+      {/* Slender curved trunk with natural lean */}
+      <mesh position={[0.3, 4.4, 0]} rotation={[0, 0, 0.08]} castShadow>
+        <cylinderGeometry args={[0.2, 0.38, 8.8, 8]} />
+        <meshStandardMaterial color="#4d321d" roughness={0.92} />
+      </mesh>
+
+      {/* Coconut cluster under crown */}
+      <group position={[0.65, 8.6, 0]}>
+        {[0, 1.2, 2.4, 3.6, 4.8].map((angle, ci) => (
+          <mesh
+            key={`nut_${ci}`}
+            position={[Math.cos(angle) * 0.35, -0.2, Math.sin(angle) * 0.35]}
+            castShadow
+          >
+            <sphereGeometry args={[0.22, 6, 6]} />
+            <meshStandardMaterial color="#6b4c2b" roughness={0.8} />
+          </mesh>
+        ))}
+      </group>
+
+      {/* Radiating drooping palm fronds (8 individual fronds) */}
+      <group position={[0.65, 8.8, 0]}>
+        {Array.from({ length: 8 }).map((_, fi) => {
+          const angle = (fi / 8) * Math.PI * 2;
+          return (
+            <group key={`frond_${fi}`} rotation={[0, angle, 0]}>
+              {/* Frond stem and arching leaf blade */}
+              <mesh
+                position={[1.8, -0.4, 0]}
+                rotation={[0, 0, -0.32]}
+                castShadow
+              >
+                <boxGeometry args={[3.6, 0.06, 0.65]} />
+                <meshStandardMaterial color="#15803d" roughness={0.7} />
+              </mesh>
+              {/* Drooping frond tip */}
+              <mesh
+                position={[3.8, -1.3, 0]}
+                rotation={[0, 0, -0.75]}
+                castShadow
+              >
+                <boxGeometry args={[1.8, 0.05, 0.45]} />
+                <meshStandardMaterial color="#166534" roughness={0.72} />
+              </mesh>
+            </group>
+          );
+        })}
+      </group>
+    </group>
+  );
+}
+
 export function CityTerrain() {
   const basaltTexture = useMemo(() => getBasaltStoneTexture(), []);
   const waterNormal = useMemo(() => getWaterNormalTexture(), []);
@@ -86,7 +237,7 @@ export function CityTerrain() {
         <planeGeometry args={[348, 420, 32, 32]} />
         <meshStandardMaterial
           map={basaltTexture}
-          color="#383533"
+          color="#35312e"
           roughness={0.92}
           metalness={0.05}
         />
@@ -197,87 +348,47 @@ export function CityTerrain() {
       </group>
 
       {/* ============================================================== */}
-      {/* 10. SACRED BANYAN & PEEPAL TREES (Broad Spreading Canopy)       */}
+      {/* 10. SACRED BANYAN & PEEPAL TREES (ORGANIC BROAD CANOPY)        */}
       {/* ============================================================== */}
       {sacredBanyans.map((tree, i) => (
-        <group key={`banyan_${i}`} position={[tree.x, 0, tree.z]} scale={tree.scale}>
-          {/* Stout Gnarled Basalt-Root Trunk */}
-          <mesh position={[0, 2.4, 0]} castShadow>
-            <cylinderGeometry args={[0.9, 1.4, 4.8, 8]} />
-            <meshStandardMaterial color="#451a03" roughness={0.95} />
-          </mesh>
-          {/* Broad Layered Foliage Canopy */}
-          <mesh position={[0, 6.2, 0]} castShadow>
-            <sphereGeometry args={[4.2, 12, 12]} />
-            <meshStandardMaterial color="#14532d" roughness={0.8} />
-          </mesh>
-          <mesh position={[1.4, 7.4, -0.8]} castShadow>
-            <sphereGeometry args={[3.2, 10, 10]} />
-            <meshStandardMaterial color="#166534" roughness={0.75} />
-          </mesh>
-          <mesh position={[-1.2, 7.0, 1.0]} castShadow>
-            <sphereGeometry args={[3.0, 10, 10]} />
-            <meshStandardMaterial color="#15803d" roughness={0.78} />
-          </mesh>
-        </group>
+        <OrganicBanyanTree
+          key={`banyan_${i}`}
+          position={[tree.x, 0, tree.z]}
+          scale={tree.scale}
+        />
       ))}
 
       {/* ============================================================== */}
-      {/* 11. NEEM & SHADE TREES (Residential & Courtyard Greenery)      */}
+      {/* 11. NEEM & SHADE TREES (ORGANIC COURTYARD GREENERY)            */}
       {/* ============================================================== */}
       {shadeTrees.map((tree, i) => (
-        <group key={`shade_${i}`} position={[tree.x, 0, tree.z]} scale={tree.scale}>
-          <mesh position={[0, 2.0, 0]} castShadow>
-            <cylinderGeometry args={[0.32, 0.52, 4.0, 8]} />
-            <meshStandardMaterial color="#3d1d07" roughness={0.9} />
-          </mesh>
-          <mesh position={[0, 5.0, 0]} castShadow>
-            <sphereGeometry args={[2.6, 10, 10]} />
-            <meshStandardMaterial color="#166534" roughness={0.75} />
-          </mesh>
-          <mesh position={[0.4, 6.2, 0.2]} castShadow>
-            <sphereGeometry args={[1.9, 8, 8]} />
-            <meshStandardMaterial color="#15803d" roughness={0.72} />
-          </mesh>
-        </group>
+        <OrganicNeemTree
+          key={`shade_${i}`}
+          position={[tree.x, 0, tree.z]}
+          scale={tree.scale}
+        />
       ))}
 
       {/* ============================================================== */}
       {/* 12. COCONUT PALM TREES ALONG RIVER PROMENADE & LAKE            */}
       {/* ============================================================== */}
       {palmTrees.map((palm, i) => (
-        <group key={`palm_${i}`} position={[palm.x, 0, palm.z]} scale={palm.scale}>
-          {/* Slender Curved Trunk */}
-          <mesh position={[0, 4.0, 0]} rotation={[0, 0, 0.07]} castShadow>
-            <cylinderGeometry args={[0.22, 0.42, 8.0, 8]} />
-            <meshStandardMaterial color="#5c3a21" roughness={0.92} />
-          </mesh>
-          {/* Radiating Palm Fronds Canopy */}
-          <mesh position={[0.5, 8.2, 0]} castShadow>
-            <coneGeometry args={[3.4, 2.2, 7]} />
-            <meshStandardMaterial color="#22c55e" roughness={0.7} />
-          </mesh>
-          <mesh position={[0.5, 9.1, 0]}>
-            <coneGeometry args={[2.2, 1.6, 6]} />
-            <meshStandardMaterial color="#16a34a" roughness={0.68} />
-          </mesh>
-        </group>
+        <OrganicPalmTree
+          key={`palm_${i}`}
+          position={[palm.x, 0, palm.z]}
+          scale={palm.scale}
+        />
       ))}
 
       {/* ============================================================== */}
       {/* 13. EASTERN RIVERBANK DISTANT GROVES                           */}
       {/* ============================================================== */}
       {easternBankTrees.map((tree, i) => (
-        <group key={`east_${i}`} position={[tree.x, 0, tree.z]} scale={tree.scale}>
-          <mesh position={[0, 2.6, 0]} castShadow>
-            <cylinderGeometry args={[0.4, 0.7, 5.2, 6]} />
-            <meshStandardMaterial color="#451a03" />
-          </mesh>
-          <mesh position={[0, 6.5, 0]} castShadow>
-            <sphereGeometry args={[3.5, 8, 8]} />
-            <meshStandardMaterial color="#166534" roughness={0.8} />
-          </mesh>
-        </group>
+        <OrganicNeemTree
+          key={`east_${i}`}
+          position={[tree.x, 0, tree.z]}
+          scale={tree.scale}
+        />
       ))}
     </group>
   );

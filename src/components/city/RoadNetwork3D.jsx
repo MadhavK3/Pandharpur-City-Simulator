@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import * as THREE from 'three';
 import { PANDHARPUR_GRAPH_DATA, ROAD_TYPES } from '../../data/pedestrianGraph.js';
+import { getBasaltStoneTexture } from '../../engine/rendering/textureUtils.js';
 
 export function RoadNetwork3D() {
   const nodeMap = new Map(PANDHARPUR_GRAPH_DATA.nodes.map(n => [n.id, n]));
+  const basaltTexture = useMemo(() => getBasaltStoneTexture(), []);
 
   return (
     <group name="road_network_3d_root">
@@ -25,8 +27,8 @@ export function RoadNetwork3D() {
         const roadConfig = ROAD_TYPES[edge.roadType] || { color: '#18181b', width: 6.0 };
         const roadWidth = roadConfig.width;
 
-        // Determine road rendering profile
-        const isAsphalt = edge.roadType === 'arterial' || edge.roadType === 'pradakshina' || edge.roadType === 'bazaar_lane';
+        const isAsphalt = edge.roadType === 'arterial' || edge.roadType === 'pradakshina';
+        const isBazaar = edge.roadType === 'bazaar_lane';
         const isPedestrian = edge.roadType === 'pedestrian_walkway';
         const isGhat = edge.roadType === 'ghat_steps';
 
@@ -36,20 +38,20 @@ export function RoadNetwork3D() {
             position={[midX, midY, midZ]}
             rotation={[0, angle, 0]}
           >
-            {/* 1. Vehicular Tarmac Roads */}
+            {/* 1. Vehicular Tarmac Roads (Arterial & Pradakshina) */}
             {isAsphalt && (
               <>
-                {/* Main Asphalt Road Bed */}
+                {/* Main Asphalt Bed */}
                 <mesh position={[0, 0, 0]} receiveShadow>
                   <boxGeometry args={[roadWidth, 0.08, length]} />
                   <meshStandardMaterial
-                    color="#18181b"
-                    roughness={0.88}
-                    metalness={0.08}
+                    color="#1c1917"
+                    roughness={0.9}
+                    metalness={0.06}
                   />
                 </mesh>
 
-                {/* Concrete Curbs on Both Sides */}
+                {/* Concrete Curbs */}
                 {[-roadWidth / 2 - 0.25, roadWidth / 2 + 0.25].map((curbX, ci) => (
                   <mesh key={`curb_${ci}`} position={[curbX, 0.05, 0]} receiveShadow>
                     <boxGeometry args={[0.5, 0.14, length]} />
@@ -57,7 +59,7 @@ export function RoadNetwork3D() {
                   </mesh>
                 ))}
 
-                {/* Pedestrian Sidewalk Pavement */}
+                {/* Sidewalk Pavement */}
                 {[-roadWidth / 2 - 0.9, roadWidth / 2 + 0.9].map((sideX, si) => (
                   <mesh key={`sidewalk_${si}`} position={[sideX, 0.03, 0]} receiveShadow>
                     <boxGeometry args={[0.8, 0.1, length]} />
@@ -65,15 +67,13 @@ export function RoadNetwork3D() {
                   </mesh>
                 ))}
 
-                {/* Yellow Dashed Center Line (only on arterials and pradakshina) */}
-                {edge.roadType !== 'bazaar_lane' && (
-                  <mesh position={[0, 0.045, 0]}>
-                    <boxGeometry args={[0.26, 0.01, length * 0.92]} />
-                    <meshStandardMaterial color="#eab308" roughness={0.3} />
-                  </mesh>
-                )}
+                {/* Center Road Markings */}
+                <mesh position={[0, 0.045, 0]}>
+                  <boxGeometry args={[0.26, 0.01, length * 0.92]} />
+                  <meshStandardMaterial color="#eab308" roughness={0.3} />
+                </mesh>
 
-                {/* White Shoulder Solid Boundary Lines */}
+                {/* Solid Shoulder White Markings */}
                 {[-roadWidth / 2 + 0.35, roadWidth / 2 - 0.35].map((whiteX, wi) => (
                   <mesh key={`white_line_${wi}`} position={[whiteX, 0.045, 0]}>
                     <boxGeometry args={[0.16, 0.01, length * 0.95]} />
@@ -102,23 +102,54 @@ export function RoadNetwork3D() {
               </>
             )}
 
-            {/* 2. Sacred Pedestrian Walkways & Sand Trails (Courtyards & Riverbank) */}
+            {/* 2. Historic Bazaar Flagstone Pedestrian Streets */}
+            {isBazaar && (
+              <>
+                <mesh position={[0, 0, 0]} receiveShadow>
+                  <boxGeometry args={[roadWidth, 0.08, length]} />
+                  <meshStandardMaterial
+                    map={basaltTexture}
+                    color="#44403c"
+                    roughness={0.82}
+                    metalness={0.06}
+                  />
+                </mesh>
+
+                {/* Weathered Stone Curb Edging */}
+                {[-roadWidth / 2 - 0.2, roadWidth / 2 + 0.2].map((curbX, ci) => (
+                  <mesh key={`bz_curb_${ci}`} position={[curbX, 0.05, 0]} receiveShadow>
+                    <boxGeometry args={[0.4, 0.12, length]} />
+                    <meshStandardMaterial map={basaltTexture} color="#383431" roughness={0.88} />
+                  </mesh>
+                ))}
+
+                {/* Festive Overhead Saffron & Yellow Bunting Strings */}
+                {length > 30 && (
+                  <mesh position={[0, 4.6, 0]}>
+                    <cylinderGeometry args={[0.02, 0.02, roadWidth, 4]} rotation={[0, 0, Math.PI / 2]} />
+                    <meshStandardMaterial color="#ea580c" />
+                  </mesh>
+                )}
+              </>
+            )}
+
+            {/* 3. Sacred Pedestrian Walkways & Sand Trails (Courtyards & Riverbank) */}
             {isPedestrian && (
               <mesh position={[0, -0.01, 0]} receiveShadow>
                 <boxGeometry args={[2.8, 0.03, length]} />
                 <meshStandardMaterial
-                  color={u.y < -0.3 || v.y < -0.3 ? '#b8976b' : '#383533'}
+                  color={u.y < -0.3 || v.y < -0.3 ? '#caa373' : '#383533'}
                   roughness={0.9}
                   metalness={0.05}
                 />
               </mesh>
             )}
 
-            {/* 3. Stone Ghat Steps Connectors */}
+            {/* 4. Stone Ghat Steps Connectors */}
             {isGhat && (
               <mesh position={[0, -0.02, 0]} receiveShadow>
                 <boxGeometry args={[3.2, 0.04, length]} />
-                <meshStandardMaterial color="#44403c" roughness={0.8} />
+                <meshStandardMaterial map={basaltTexture} color="#44403c" roughness={0.8} />
               </mesh>
             )}
           </group>
@@ -129,7 +160,7 @@ export function RoadNetwork3D() {
       {PANDHARPUR_GRAPH_DATA.nodes.filter(n => n.type === 'junction' || n.type === 'transport').map(j => (
         <mesh key={`junction_fillet_${j.id}`} position={[j.x, 0.04, j.z]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
           <circleGeometry args={[5.2, 24]} />
-          <meshStandardMaterial color="#18181b" roughness={0.88} metalness={0.08} />
+          <meshStandardMaterial color="#1c1917" roughness={0.88} metalness={0.08} />
         </mesh>
       ))}
 
@@ -140,17 +171,14 @@ export function RoadNetwork3D() {
         { x: -125, z: 46, rot: 1.2 }
       ].map((rick, ri) => (
         <group key={`rickshaw_${ri}`} position={[rick.x, 0.5, rick.z]} rotation={[0, rick.rot, 0]}>
-          {/* Lower yellow body */}
           <mesh position={[0, 0.4, 0]}>
             <boxGeometry args={[1.5, 0.8, 2.6]} />
             <meshStandardMaterial color="#eab308" roughness={0.4} />
           </mesh>
-          {/* Black canopy top */}
           <mesh position={[0, 1.2, 0.2]}>
             <boxGeometry args={[1.4, 0.8, 2.0]} />
             <meshStandardMaterial color="#18181b" roughness={0.6} />
           </mesh>
-          {/* Windshield */}
           <mesh position={[0, 1.0, -0.9]} rotation={[0.2, 0, 0]}>
             <boxGeometry args={[1.2, 0.6, 0.1]} />
             <meshStandardMaterial color="#93c5fd" transparent opacity={0.6} />
@@ -160,3 +188,5 @@ export function RoadNetwork3D() {
     </group>
   );
 }
+
+export default RoadNetwork3D;

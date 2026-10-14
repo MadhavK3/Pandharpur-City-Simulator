@@ -17,13 +17,13 @@ export function CityCanvas() {
   return (
     <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}>
       <Canvas
-        camera={{ position: [0, 95, 140], fov: 50, near: 1, far: 1100 }}
+        camera={{ position: [-50, 92, 138], fov: 48, near: 1, far: 1200 }}
         shadows
         gl={{
           antialias: true,
           alpha: false,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.15
+          toneMappingExposure: 1.18
         }}
       >
         <Suspense fallback={null}>

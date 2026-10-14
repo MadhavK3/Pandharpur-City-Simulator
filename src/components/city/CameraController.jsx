@@ -19,8 +19,8 @@ export function CameraController() {
 
   const moveJoystickVector = useSimulationStore(state => state.moveJoystickVector);
 
-  const targetLookAt = useRef(new THREE.Vector3(0, 0, 0));
-  const targetCamPos = useRef(new THREE.Vector3(0, 95, 140));
+  const targetLookAt = useRef(new THREE.Vector3(15, 0, -10));
+  const targetCamPos = useRef(new THREE.Vector3(-50, 92, 138));
   const isTransitioning = useRef(false);
 
   // Guided tour dwell timer
@@ -110,8 +110,8 @@ export function CameraController() {
       targetCamPos.current.set(0, 260, 5);
       isTransitioning.current = true;
     } else if (cameraMode === 'orbit') {
-      targetLookAt.current.set(0, 0, 0);
-      targetCamPos.current.set(0, 95, 140);
+      targetLookAt.current.set(15, 0, -10);
+      targetCamPos.current.set(-50, 92, 138);
       isTransitioning.current = true;
     } else if (cameraMode === 'ground') {
       // Enter ground level

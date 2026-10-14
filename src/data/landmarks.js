@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Landmarks database for Pandharpur Darshan 3D
  * Accurate cultural, historical, and geographic representation
  * Linked with authentic photography and reference cartography.
@@ -93,6 +93,19 @@ export const LANDMARKS = [
     darshanTime: '05:00 AM - 10:00 PM',
     crowdLevel: 'high',
     icon: 'Flame',
+    featured: true
+  },
+  {
+    id: 'VISHNUPAD_MANDIR',
+    name: 'Vishnupad Mandir',
+    marathiName: 'विष्णुपद मंदिर',
+    category: 'temple',
+    coordinates: [118, -0.6, 68],
+    image: '/images/chandrabhaga_river.jpg',
+    significance: 'Historic riverside stone temple in the Chandrabhaga riverbed enshrining the sacred footprints of Lord Vishnu and Lord Krishna embedded in rock.',
+    darshanTime: '06:00 AM - 08:00 PM',
+    crowdLevel: 'medium',
+    icon: 'Footprints',
     featured: true
   },
   {

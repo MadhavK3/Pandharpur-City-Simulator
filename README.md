@@ -8,7 +8,7 @@ A 3D simulation of the sacred pilgrimage city of **Pandharpur** coupled with an 
 
 ## 🌟 Overview
 
-**Pandharpur City Simulator** combines real-world cultural cartography with algorithmic engineering. Explore the holy city of Pandharpur in interactive 3D—featuring the historic Shri Vitthal Rukmini Mandir, Chandrabhaga River ghats, and bustling Mahadwar market—while visualizing and analyzing graph traversal and optimization algorithms in real time.
+**Pandharpur City Simulator** combines real-world cultural cartography with algorithmic engineering. Explore the holy city of Pandharpur in interactive 3D-featuring the historic Shri Vitthal Rukmini Mandir, Chandrabhaga River ghats, and bustling Mahadwar market-while visualizing and analyzing graph traversal and optimization algorithms in real time.
 
 ---
 
